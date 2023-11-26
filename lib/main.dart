@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:parking_manager/home_page.dart';
+import 'package:parking_manager/parking_manager/presentation/pages/home_page.dart';
 
 void main() => runApp(const MyApp());
 
