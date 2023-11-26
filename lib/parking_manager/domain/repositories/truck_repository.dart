@@ -4,7 +4,7 @@ import 'package:parking_manager/parking_manager/domain/entities/truck_entity.dar
 import 'package:parking_manager/shared/failure.dart';
 
 abstract class TruckRepository {
-  Future<Either<Failure, TruckEntity>> getTrucks();
+  Future<Either<Failure, List<TruckEntity>>> getTrucks();
   Future<Either<Failure, bool>> registerTruck(TruckModel truckModel);
   Future<Either<Failure, bool>> updateTruck(TruckModel truckModel);
   Future<Either<Failure, bool>> deleteTruck(String id);

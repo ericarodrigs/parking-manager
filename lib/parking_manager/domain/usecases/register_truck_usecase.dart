@@ -5,10 +5,10 @@ import 'package:parking_manager/parking_manager/domain/repositories/truck_reposi
 import 'package:parking_manager/shared/failure.dart';
 import 'package:parking_manager/shared/usecases.dart';
 
-class RegisterTruck implements Usecases<bool, Params> {
+class RegisterTruckUseCase implements Usecases<bool, Params> {
   final TruckRepository repository;
 
-  RegisterTruck({
+  RegisterTruckUseCase({
     required this.repository,
   });
 

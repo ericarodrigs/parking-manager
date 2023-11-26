@@ -5,7 +5,7 @@ import 'package:parking_manager/parking_manager/domain/repositories/truck_reposi
 import 'package:parking_manager/shared/failure.dart';
 import 'package:parking_manager/shared/usecases.dart';
 
-class GetTrucks implements Usecases<TruckEntity, NoParams> {
+class GetTrucks implements Usecases<List<TruckEntity>, NoParams> {
   final TruckRepository repository;
 
   GetTrucks({
@@ -13,7 +13,7 @@ class GetTrucks implements Usecases<TruckEntity, NoParams> {
   });
 
   @override
-  Future<Either<Failure, TruckEntity>> call(NoParams params) async {
+  Future<Either<Failure, List<TruckEntity>>> call(NoParams params) async {
     return await repository.getTrucks();
   }
 }
