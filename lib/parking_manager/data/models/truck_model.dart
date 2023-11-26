@@ -9,7 +9,15 @@ class TruckModel extends TruckEntity {
     int? vacancy,
     String? driver,
     double? checkoutValue,
-  });
+  }) : super(
+          id: id,
+          plate: plate,
+          checkinTime: checkinTime,
+          checkoutTime: checkoutTime,
+          vacancy: vacancy,
+          driver: driver,
+          checkoutValue: checkoutValue,
+        );
 
   factory TruckModel.fromMap(Map<String, dynamic> map) {
     return TruckModel(
@@ -33,5 +41,10 @@ class TruckModel extends TruckEntity {
       'driver': driver,
       'checkoutValue': checkoutValue,
     };
+  }
+
+  @override
+  String toString() {
+    return 'TruckModel {id: $id, plate: $plate, checkinTime: $checkinTime, checkoutTime: $checkoutTime, vacancy: $vacancy, driver: $driver, checkoutValue: $checkoutValue}';
   }
 }
