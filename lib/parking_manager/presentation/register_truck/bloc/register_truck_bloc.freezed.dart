@@ -16,20 +16,20 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$RegisterTruckEvent {
-  TruckModel get truckModel => throw _privateConstructorUsedError;
+  TruckEntity get truckEntity => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(TruckModel truckModel) registerTruck,
+    required TResult Function(TruckEntity truckEntity) registerTruck,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(TruckModel truckModel)? registerTruck,
+    TResult? Function(TruckEntity truckEntity)? registerTruck,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(TruckModel truckModel)? registerTruck,
+    TResult Function(TruckEntity truckEntity)? registerTruck,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -61,7 +61,7 @@ abstract class $RegisterTruckEventCopyWith<$Res> {
           RegisterTruckEvent value, $Res Function(RegisterTruckEvent) then) =
       _$RegisterTruckEventCopyWithImpl<$Res, RegisterTruckEvent>;
   @useResult
-  $Res call({TruckModel truckModel});
+  $Res call({TruckEntity truckEntity});
 }
 
 /// @nodoc
@@ -77,13 +77,13 @@ class _$RegisterTruckEventCopyWithImpl<$Res, $Val extends RegisterTruckEvent>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? truckModel = null,
+    Object? truckEntity = freezed,
   }) {
     return _then(_value.copyWith(
-      truckModel: null == truckModel
-          ? _value.truckModel
-          : truckModel // ignore: cast_nullable_to_non_nullable
-              as TruckModel,
+      truckEntity: freezed == truckEntity
+          ? _value.truckEntity
+          : truckEntity // ignore: cast_nullable_to_non_nullable
+              as TruckEntity,
     ) as $Val);
   }
 }
@@ -97,7 +97,7 @@ abstract class _$$RegisterNewTruckEventImplCopyWith<$Res>
       __$$RegisterNewTruckEventImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({TruckModel truckModel});
+  $Res call({TruckEntity truckEntity});
 }
 
 /// @nodoc
@@ -111,13 +111,13 @@ class __$$RegisterNewTruckEventImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? truckModel = null,
+    Object? truckEntity = freezed,
   }) {
     return _then(_$RegisterNewTruckEventImpl(
-      null == truckModel
-          ? _value.truckModel
-          : truckModel // ignore: cast_nullable_to_non_nullable
-              as TruckModel,
+      freezed == truckEntity
+          ? _value.truckEntity
+          : truckEntity // ignore: cast_nullable_to_non_nullable
+              as TruckEntity,
     ));
   }
 }
@@ -125,14 +125,14 @@ class __$$RegisterNewTruckEventImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$RegisterNewTruckEventImpl implements RegisterNewTruckEvent {
-  const _$RegisterNewTruckEventImpl(this.truckModel);
+  const _$RegisterNewTruckEventImpl(this.truckEntity);
 
   @override
-  final TruckModel truckModel;
+  final TruckEntity truckEntity;
 
   @override
   String toString() {
-    return 'RegisterTruckEvent.registerTruck(truckModel: $truckModel)';
+    return 'RegisterTruckEvent.registerTruck(truckEntity: $truckEntity)';
   }
 
   @override
@@ -140,12 +140,13 @@ class _$RegisterNewTruckEventImpl implements RegisterNewTruckEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RegisterNewTruckEventImpl &&
-            (identical(other.truckModel, truckModel) ||
-                other.truckModel == truckModel));
+            const DeepCollectionEquality()
+                .equals(other.truckEntity, truckEntity));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, truckModel);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(truckEntity));
 
   @JsonKey(ignore: true)
   @override
@@ -157,27 +158,27 @@ class _$RegisterNewTruckEventImpl implements RegisterNewTruckEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(TruckModel truckModel) registerTruck,
+    required TResult Function(TruckEntity truckEntity) registerTruck,
   }) {
-    return registerTruck(truckModel);
+    return registerTruck(truckEntity);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(TruckModel truckModel)? registerTruck,
+    TResult? Function(TruckEntity truckEntity)? registerTruck,
   }) {
-    return registerTruck?.call(truckModel);
+    return registerTruck?.call(truckEntity);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(TruckModel truckModel)? registerTruck,
+    TResult Function(TruckEntity truckEntity)? registerTruck,
     required TResult orElse(),
   }) {
     if (registerTruck != null) {
-      return registerTruck(truckModel);
+      return registerTruck(truckEntity);
     }
     return orElse();
   }
@@ -212,11 +213,11 @@ class _$RegisterNewTruckEventImpl implements RegisterNewTruckEvent {
 }
 
 abstract class RegisterNewTruckEvent implements RegisterTruckEvent {
-  const factory RegisterNewTruckEvent(final TruckModel truckModel) =
+  const factory RegisterNewTruckEvent(final TruckEntity truckEntity) =
       _$RegisterNewTruckEventImpl;
 
   @override
-  TruckModel get truckModel;
+  TruckEntity get truckEntity;
   @override
   @JsonKey(ignore: true)
   _$$RegisterNewTruckEventImplCopyWith<_$RegisterNewTruckEventImpl>

@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:parking_manager/parking_manager/data/models/truck_model.dart';
+import 'package:parking_manager/parking_manager/domain/entities/truck_entity.dart';
 import 'package:parking_manager/parking_manager/domain/usecases/register_truck_usecase.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'register_truck_event.dart';
@@ -16,7 +16,7 @@ class RegisterTruckBloc extends Bloc<RegisterTruckEvent, RegisterTruckState> {
       if (event is RegisterNewTruckEvent) {
         emit(const RegisterTruckState.loading());
         final result = await registerTruckUseCase(
-          Params(truckModel: event.truckModel),
+          Params(truckEntity: event.truckEntity),
         );
         result.fold(
           (l) => emit(

@@ -55,7 +55,7 @@ class GridViewTrucks extends StatelessWidget {
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
-                onTap: () => GoRouter.of(context).go(AppRouter.registerTruck),
+                onTap: () => GoRouter.of(context).push(AppRouter.registerTruck),
                 child: Container(
                   width: 20,
                   height: 20,

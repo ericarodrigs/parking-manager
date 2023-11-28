@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:parking_manager/parking_manager/data/models/truck_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:parking_manager/parking_manager/domain/entities/truck_entity.dart';
 import 'package:parking_manager/parking_manager/presentation/register_truck/bloc/register_truck_bloc.dart';
 import 'package:parking_manager/shared/routes.dart';
 import 'package:parking_manager/shared/widgets/e_primary_button.dart';
@@ -19,11 +19,12 @@ class RegisterPage extends StatelessWidget {
     TextEditingController vacancyController = TextEditingController();
     TextEditingController driverController = TextEditingController();
     TextEditingController checkoutValueController = TextEditingController();
-    TruckModel truck;
+    TruckEntity truck;
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Register Page'),
+        automaticallyImplyLeading: true,
       ),
       resizeToAvoidBottomInset: false,
       body: BlocConsumer<RegisterTruckBloc, RegisterTruckState>(
@@ -104,7 +105,7 @@ class RegisterPage extends StatelessWidget {
                 EPrimaryButton(
                   title: 'Salvar',
                   onPressed: () {
-                    truck = TruckModel(
+                    truck = TruckEntity(
                       plate: plateController.text,
                       // checkinTime: DateTime.tryParse(checkinTimeController.text)
                       //         ?.toLocal() ??
@@ -118,7 +119,6 @@ class RegisterPage extends StatelessWidget {
                       // checkoutValue:
                       //     double.tryParse(checkoutValueController.text),
                     );
-                    print(truck.toString());
                     context.read<RegisterTruckBloc>().add(
                           RegisterNewTruckEvent(truck),
                         );

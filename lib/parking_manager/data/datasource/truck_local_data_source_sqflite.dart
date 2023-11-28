@@ -4,7 +4,6 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'package:parking_manager/parking_manager/data/datasource/truck_local_data_source.dart';
-import 'package:parking_manager/parking_manager/data/models/truck_model.dart';
 import 'package:parking_manager/parking_manager/domain/entities/truck_entity.dart';
 import 'package:parking_manager/shared/exceptions.dart';
 
@@ -45,7 +44,7 @@ class TruckLocalDataSourceSqflite implements TruckLocalDataSource {
   }
 
   @override
-  Future<bool> registerTruck(TruckModel truckModel) async {
+  Future<bool> registerTruck(TruckEntity truckEntity) async {
     try {
       await _db.transaction(
         (txn) async {
@@ -58,9 +57,9 @@ class TruckLocalDataSourceSqflite implements TruckLocalDataSource {
           )
           VALUES
             (
-              "${truckModel.plate}",
-              "${truckModel.driver}",
-              "${truckModel.vacancy}"
+              "${truckEntity.plate}",
+              "${truckEntity.driver}",
+              "${truckEntity.vacancy}"
             )''');
         },
       );
@@ -80,12 +79,12 @@ class TruckLocalDataSourceSqflite implements TruckLocalDataSource {
   Future<List<TruckEntity>> getTrucks() async {
     final response = await _db.rawQuery('SELECT * FROM $_truckTable');
     return response
-        .map<TruckModel>((truck) => TruckModel.fromMap(truck))
+        .map<TruckEntity>((truck) => TruckEntity.fromMap(truck))
         .toList();
   }
 
   @override
-  Future<bool> updateTruck(TruckModel truckModel) {
+  Future<bool> updateTruck(TruckEntity truckEntity) {
     // TODO: implement updateTruck
     throw UnimplementedError();
   }
