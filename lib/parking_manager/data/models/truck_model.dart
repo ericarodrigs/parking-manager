@@ -6,7 +6,7 @@ class TruckModel extends TruckEntity {
     String? plate,
     DateTime? checkinTime,
     DateTime? checkoutTime,
-    int? vacancy,
+    String? vacancy,
     String? driver,
     double? checkoutValue,
   }) : super(
@@ -23,11 +23,11 @@ class TruckModel extends TruckEntity {
     return TruckModel(
       id: map['id'],
       plate: map['plate'],
-      checkinTime: map['checkinTime'] as DateTime,
-      checkoutTime: map['checkoutTime'] as DateTime,
-      vacancy: map['vacancy'] as int,
+      //checkinTime: map['checkinTime'] as DateTime,
+      //checkoutTime: map['checkoutTime'] as DateTime,
+      vacancy: map['vacancy'],
       driver: map['driver'],
-      checkoutValue: map['checkoutValue'] as double,
+      //checkoutValue: map['checkoutValue'] as double,
     );
   }
 

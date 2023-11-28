@@ -3,7 +3,7 @@ class TruckEntity {
   final String? plate;
   final DateTime? checkinTime;
   final DateTime? checkoutTime;
-  final int? vacancy;
+  final String? vacancy;
   final String? driver;
   final double? checkoutValue;
 

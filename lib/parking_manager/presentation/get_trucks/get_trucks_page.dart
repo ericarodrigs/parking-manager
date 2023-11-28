@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.deepPurple,
                   ),
                 ),
-            loaded: (trucks) => {finalView = GridViewTrucks(trucks: trucks)},
+            loaded: (trucks) => finalView = GridViewTrucks(trucks: trucks),
             error: () => finalView = const Center(child: Text('error')));
         return finalView;
       }),
@@ -62,7 +62,7 @@ class GridViewTrucks extends StatelessWidget {
                   color: Colors.deepPurple.withOpacity(0.5),
                   child: Center(
                     child: (trucks != null)
-                        ? Text('Vaga: ${index + 1} - ${trucks?[index].plate}')
+                        ? Text('Vaga: ${index + 1} - ${trucks?.first.plate}')
                         : Text('Vaga: ${index + 1} - Livre'),
                   ),
                 ),

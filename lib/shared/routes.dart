@@ -17,7 +17,8 @@ class AppRouter {
         path: root,
         pageBuilder: (context, state) => CustomTransitionPage(
           child: BlocProvider(
-            create: (context) => injector<GetTrucksBloc>(),
+            create: (context) =>
+                injector<GetTrucksBloc>()..add(const GetAllTrucksEvent()),
             child: const HomePage(),
           ),
           transitionsBuilder: (context, animation, secondaryAnimation, child) =>
