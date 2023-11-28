@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:parking_manager/parking_manager/presentation/pages/home_page.dart';
+import 'package:parking_manager/parking_manager/presentation/get_trucks/bloc/get_trucks_bloc.dart';
+import 'package:parking_manager/parking_manager/presentation/get_trucks/get_trucks_page.dart';
 import 'package:parking_manager/parking_manager/presentation/register_truck/bloc/register_truck_bloc.dart';
-import 'package:parking_manager/parking_manager/presentation/register_truck/register_page.dart';
+import 'package:parking_manager/parking_manager/presentation/register_truck/register_truck_page.dart';
 import 'package:parking_manager/shared/injector.dart';
 
 class AppRouter {
@@ -15,7 +16,10 @@ class AppRouter {
       GoRoute(
         path: root,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const HomePage(),
+          child: BlocProvider(
+            create: (context) => injector<GetTrucksBloc>(),
+            child: const HomePage(),
+          ),
           transitionsBuilder: (context, animation, secondaryAnimation, child) =>
               FadeTransition(opacity: animation, child: child),
         ),

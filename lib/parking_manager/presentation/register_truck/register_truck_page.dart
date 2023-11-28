@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:parking_manager/parking_manager/data/models/truck_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:parking_manager/parking_manager/presentation/register_truck/bloc/register_truck_bloc.dart';
+import 'package:parking_manager/shared/routes.dart';
 import 'package:parking_manager/shared/widgets/e_primary_button.dart';
 import 'package:parking_manager/shared/widgets/e_text_form_field.dart';
 import 'package:date_time_picker/date_time_picker.dart';
@@ -35,6 +37,7 @@ class RegisterPage extends StatelessWidget {
                   content: Text("Added Successfully"),
                 ),
               );
+              GoRouter.of(context).go(AppRouter.root);
             },
             failed: () => null,
           );
@@ -103,15 +106,17 @@ class RegisterPage extends StatelessWidget {
                   onPressed: () {
                     truck = TruckModel(
                       plate: plateController.text,
-                      checkinTime: DateTime.tryParse(checkinTimeController.text)
-                          ?.toLocal(),
-                      checkoutTime:
-                          DateTime.tryParse(checkoutTimeController.text)
-                              ?.toLocal(),
-                      vacancy: int.tryParse(vacancyController.text),
+                      // checkinTime: DateTime.tryParse(checkinTimeController.text)
+                      //         ?.toLocal() ??
+                      //     DateTime.now(),
+                      // checkoutTime:
+                      //     DateTime.tryParse(checkoutTimeController.text)
+                      //             ?.toLocal() ??
+                      //         DateTime.now(),
+                      vacancy: vacancyController.text,
                       driver: driverController.text,
-                      checkoutValue:
-                          double.tryParse(checkoutValueController.text),
+                      // checkoutValue:
+                      //     double.tryParse(checkoutValueController.text),
                     );
                     print(truck.toString());
                     context.read<RegisterTruckBloc>().add(

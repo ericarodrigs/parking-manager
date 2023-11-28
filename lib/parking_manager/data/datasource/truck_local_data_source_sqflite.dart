@@ -38,7 +38,8 @@ class TruckLocalDataSourceSqflite implements TruckLocalDataSource {
     await db.execute('''
           CREATE TABLE $_truckTable(
           plate TEXT,
-          driver TEXT
+          driver TEXT,
+          vacancy TEXT
           )
         ''');
   }
@@ -52,12 +53,14 @@ class TruckLocalDataSourceSqflite implements TruckLocalDataSource {
           INSERT INTO $_truckTable 
           (
           plate,
-          driver
+          driver,
+          vacancy
           )
           VALUES
             (
               "${truckModel.plate}",
-              "${truckModel.driver}"
+              "${truckModel.driver}",
+              "${truckModel.vacancy}"
             )''');
         },
       );
@@ -74,9 +77,11 @@ class TruckLocalDataSourceSqflite implements TruckLocalDataSource {
   }
 
   @override
-  Future<List<TruckEntity>> getTrucks() {
-    // TODO: implement getTrucks
-    throw UnimplementedError();
+  Future<List<TruckEntity>> getTrucks() async {
+    final response = await _db.rawQuery('SELECT * FROM $_truckTable');
+    return response
+        .map<TruckModel>((truck) => TruckModel.fromMap(truck))
+        .toList();
   }
 
   @override
