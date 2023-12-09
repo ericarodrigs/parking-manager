@@ -57,8 +57,12 @@ class GridViewParking extends StatelessWidget {
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
-                onTap: () =>
-                    GoRouter.of(context).push(AppRouter.registerParking),
+                onTap: () => GoRouter.of(context).push(
+                  AppRouter.registerParking,
+                  extra: {
+                    'vacancy': (index + 1),
+                  },
+                ),
                 child: Container(
                   width: 20,
                   height: 20,

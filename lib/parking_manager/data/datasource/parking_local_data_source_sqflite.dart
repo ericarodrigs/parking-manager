@@ -40,7 +40,7 @@ class ParkingLocalDataSourceSqflite implements ParkingLocalDataSource {
           plate TEXT,
           checkinTime TEXT,
           checkoutTime TEXT,
-          vacancy TEXT
+          vacancy INTEGER
           )
         ''');
   }

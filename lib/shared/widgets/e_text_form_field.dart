@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class ETextFormField extends StatelessWidget {
   final String hintText;
+  final String? initialValue;
   final TextInputType inputType;
   final TextInputAction inputAction;
   final TextEditingController? controller;
@@ -12,6 +13,7 @@ class ETextFormField extends StatelessWidget {
   const ETextFormField({
     super.key,
     required this.hintText,
+    this.initialValue,
     this.inputType = TextInputType.text,
     this.inputAction = TextInputAction.next,
     this.controller,
@@ -23,10 +25,8 @@ class ETextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      // style: AppTextStyles.regular16(context).copyWith(
-      //   color: AppColors.grayText,
-      // ),
       controller: controller,
+      initialValue: initialValue,
       keyboardType: inputType,
       textInputAction: inputAction,
       cursorColor: Colors.deepPurple,
@@ -34,9 +34,6 @@ class ETextFormField extends StatelessWidget {
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.all(8),
         hintText: hintText,
-        // hintStyle: AppTextStyles.regular16(context).copyWith(
-        //   color: AppColors.grayText,
-        // ),
         border: border,
         enabledBorder: border,
         disabledBorder: border,

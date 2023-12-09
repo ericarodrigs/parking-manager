@@ -1,16 +1,16 @@
 class ParkingEntity {
   final String? id;
-  final String? plate;
-  final String? checkinTime;
-  final String? checkoutTime;
-  final String? vacancy;
+  final String plate;
+  final String checkinTime;
+  final String checkoutTime;
+  final int vacancy;
 
   ParkingEntity({
     this.id,
-    this.plate,
-    this.checkinTime,
-    this.checkoutTime,
-    this.vacancy,
+    required this.plate,
+    required this.checkinTime,
+    required this.checkoutTime,
+    required this.vacancy,
   });
 
   factory ParkingEntity.fromMap(Map<String, dynamic> map) {
@@ -19,7 +19,7 @@ class ParkingEntity {
       plate: map['plate'],
       checkinTime: map['checkinTime'],
       checkoutTime: map['checkoutTime'],
-      vacancy: map['vacancy'],
+      vacancy: map['vacancy'] as int,
     );
   }
 

@@ -27,14 +27,18 @@ class AppRouter {
       ),
       GoRoute(
         path: registerParking,
-        pageBuilder: (context, state) => CustomTransitionPage(
-          child: BlocProvider(
-            create: (context) => injector<RegisterParkingBloc>(),
-            child: const RegisterPage(),
-          ),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-              FadeTransition(opacity: animation, child: child),
-        ),
+        pageBuilder: (context, state) {
+          Map<String, int> args = state.extra as Map<String, int>;
+          return CustomTransitionPage(
+            child: BlocProvider(
+              create: (context) => injector<RegisterParkingBloc>(),
+              child: RegisterPage(vacancy: args['vacancy']!),
+            ),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) =>
+                    FadeTransition(opacity: animation, child: child),
+          );
+        },
       ),
     ],
   );

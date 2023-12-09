@@ -9,16 +9,17 @@ import 'package:parking_manager/shared/widgets/e_text_form_field.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 
 class RegisterPage extends StatelessWidget {
-  const RegisterPage({super.key});
+  final int vacancy;
+  const RegisterPage({
+    super.key,
+    required this.vacancy,
+  });
 
   @override
   Widget build(BuildContext context) {
     TextEditingController plateController = TextEditingController();
     TextEditingController checkinTimeController = TextEditingController();
     TextEditingController checkoutTimeController = TextEditingController();
-    TextEditingController vacancyController = TextEditingController();
-    TextEditingController driverController = TextEditingController();
-    TextEditingController checkoutValueController = TextEditingController();
     ParkingEntity parking;
 
     return Scaffold(
@@ -89,17 +90,7 @@ class RegisterPage extends StatelessWidget {
                 const SizedBox(height: 8),
                 ETextFormField(
                   hintText: 'Qual a vaga',
-                  controller: vacancyController,
-                ),
-                const SizedBox(height: 8),
-                ETextFormField(
-                  hintText: 'Nome do motorista',
-                  controller: driverController,
-                ),
-                const SizedBox(height: 8),
-                ETextFormField(
-                  hintText: 'Valor pago',
-                  controller: checkoutValueController,
+                  initialValue: vacancy.toString(),
                 ),
                 const Spacer(),
                 EPrimaryButton(
@@ -107,6 +98,8 @@ class RegisterPage extends StatelessWidget {
                   onPressed: () {
                     parking = ParkingEntity(
                       plate: plateController.text,
+                      checkinTime: '',
+                      checkoutTime: '',
                       // checkinTime: DateTime.tryParse(checkinTimeController.text)
                       //         ?.toLocal() ??
                       //     DateTime.now(),
@@ -114,7 +107,7 @@ class RegisterPage extends StatelessWidget {
                       //     DateTime.tryParse(checkoutTimeController.text)
                       //             ?.toLocal() ??
                       //         DateTime.now(),
-                      vacancy: vacancyController.text,
+                      vacancy: vacancy,
                     );
                     context.read<RegisterParkingBloc>().add(
                           RegisterNewParkingEvent(parking),
