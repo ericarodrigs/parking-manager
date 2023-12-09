@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:parking_manager/parking_manager/domain/entities/truck_entity.dart';
-import 'package:parking_manager/parking_manager/presentation/get_trucks/bloc/get_trucks_bloc.dart';
+import 'package:parking_manager/parking_manager/domain/entities/parking_entity.dart';
+import 'package:parking_manager/parking_manager/presentation/get_parking/bloc/get_parking_bloc.dart';
 import 'package:parking_manager/shared/routes.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,16 +20,18 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('Parking Manager'),
       ),
-      body:
-          BlocBuilder<GetTrucksBloc, GetTrucksState>(builder: (context, state) {
+      body: BlocBuilder<GetParkingBloc, GetParkingState>(
+          builder: (context, state) {
         state.when(
-            initial: () => finalView = const GridViewTrucks(),
+            initial: () => finalView = const GridViewParking(
+                  parking: [],
+                ),
             loading: () => finalView = const Center(
                   child: CircularProgressIndicator(
                     color: Colors.deepPurple,
                   ),
                 ),
-            loaded: (trucks) => finalView = GridViewTrucks(trucks: trucks),
+            loaded: (parking) => finalView = GridViewParking(parking: parking),
             error: () => finalView = const Center(child: Text('error')));
         return finalView;
       }),
@@ -37,9 +39,9 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class GridViewTrucks extends StatelessWidget {
-  final List<TruckEntity>? trucks;
-  const GridViewTrucks({Key? key, this.trucks}) : super(key: key);
+class GridViewParking extends StatelessWidget {
+  final List<ParkingEntity> parking;
+  const GridViewParking({Key? key, required this.parking}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -55,15 +57,14 @@ class GridViewTrucks extends StatelessWidget {
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
-                onTap: () => GoRouter.of(context).push(AppRouter.registerTruck),
+                onTap: () =>
+                    GoRouter.of(context).push(AppRouter.registerParking),
                 child: Container(
                   width: 20,
                   height: 20,
                   color: Colors.deepPurple.withOpacity(0.5),
                   child: Center(
-                    child: (trucks != null)
-                        ? Text('Vaga: ${index + 1} - ${trucks?.first.plate}')
-                        : Text('Vaga: ${index + 1} - Livre'),
+                    child: Text('Vaga: ${index + 1} - Livre'),
                   ),
                 ),
               ),

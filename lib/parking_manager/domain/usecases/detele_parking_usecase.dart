@@ -1,28 +1,27 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:parking_manager/parking_manager/domain/entities/truck_entity.dart';
-import 'package:parking_manager/parking_manager/domain/repositories/truck_repository.dart';
+import 'package:parking_manager/parking_manager/domain/repositories/parking_repository.dart';
 import 'package:parking_manager/shared/failure.dart';
 import 'package:parking_manager/shared/usecases.dart';
 
-class RegisterTruckUseCase implements Usecases<bool, Params> {
-  final TruckRepository repository;
+class DeleteParking implements Usecases<bool, Params> {
+  final ParkingRepository repository;
 
-  RegisterTruckUseCase({
+  DeleteParking({
     required this.repository,
   });
 
   @override
   Future<Either<Failure, bool>> call(Params params) async {
-    return await repository.registerTruck(params.truckEntity);
+    return await repository.deleteParking(params.id);
   }
 }
 
 class Params extends Equatable {
-  final TruckEntity truckEntity;
+  final String id;
 
   const Params({
-    required this.truckEntity,
+    required this.id,
   });
 
   @override

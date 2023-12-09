@@ -1,16 +1,16 @@
 import 'dart:io';
 
+import 'package:parking_manager/parking_manager/data/datasource/parking_local_data_source.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-import 'package:parking_manager/parking_manager/data/datasource/truck_local_data_source.dart';
-import 'package:parking_manager/parking_manager/domain/entities/truck_entity.dart';
+import 'package:parking_manager/parking_manager/domain/entities/parking_entity.dart';
 import 'package:parking_manager/shared/exceptions.dart';
 
-class TruckLocalDataSourceSqflite implements TruckLocalDataSource {
+class ParkingLocalDataSourceSqflite implements ParkingLocalDataSource {
   late Database _db;
   final _dbName = 'nsqflite.db';
-  final _truckTable = 'truck_tb';
+  final _parkingTable = 'parking_tb';
 
   @override
   Future<bool> initDb() async {
@@ -24,7 +24,7 @@ class TruckLocalDataSourceSqflite implements TruckLocalDataSource {
         dbPath,
         version: 1,
         onCreate: (db, version) async {
-          await _initTruckTable(db);
+          await _initParkingTable(db);
         },
       );
       return true;
@@ -33,33 +33,37 @@ class TruckLocalDataSourceSqflite implements TruckLocalDataSource {
     }
   }
 
-  Future<void> _initTruckTable(Database db) async {
+  Future<void> _initParkingTable(Database db) async {
     await db.execute('''
-          CREATE TABLE $_truckTable(
+          CREATE TABLE $_parkingTable(
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
           plate TEXT,
-          driver TEXT,
+          checkinTime TEXT,
+          checkoutTime TEXT,
           vacancy TEXT
           )
         ''');
   }
 
   @override
-  Future<bool> registerTruck(TruckEntity truckEntity) async {
+  Future<bool> registerParking(ParkingEntity parkingEntity) async {
     try {
       await _db.transaction(
         (txn) async {
           await txn.rawInsert('''
-          INSERT INTO $_truckTable 
+          INSERT INTO $_parkingTable 
           (
           plate,
-          driver,
+          checkinTime,
+          checkoutTime,
           vacancy
           )
           VALUES
             (
-              "${truckEntity.plate}",
-              "${truckEntity.driver}",
-              "${truckEntity.vacancy}"
+              "${parkingEntity.plate}",
+              "${parkingEntity.checkinTime}",
+              "${parkingEntity.checkoutTime}",
+              "${parkingEntity.vacancy}"
             )''');
         },
       );
@@ -70,22 +74,22 @@ class TruckLocalDataSourceSqflite implements TruckLocalDataSource {
   }
 
   @override
-  Future<bool> deleteTruck(String id) {
-    // TODO: implement deleteTruck
+  Future<bool> deleteParking(String id) {
+    // TODO: implement deleteParking
     throw UnimplementedError();
   }
 
   @override
-  Future<List<TruckEntity>> getTrucks() async {
-    final response = await _db.rawQuery('SELECT * FROM $_truckTable');
+  Future<List<ParkingEntity>> getParking() async {
+    final response = await _db.rawQuery('SELECT * FROM $_parkingTable');
     return response
-        .map<TruckEntity>((truck) => TruckEntity.fromMap(truck))
+        .map<ParkingEntity>((parking) => ParkingEntity.fromMap(parking))
         .toList();
   }
 
   @override
-  Future<bool> updateTruck(TruckEntity truckEntity) {
-    // TODO: implement updateTruck
+  Future<bool> updateParking(ParkingEntity parkingEntity) {
+    // TODO: implement updateParking
     throw UnimplementedError();
   }
 }

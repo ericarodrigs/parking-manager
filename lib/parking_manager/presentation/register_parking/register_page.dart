@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:parking_manager/parking_manager/domain/entities/truck_entity.dart';
-import 'package:parking_manager/parking_manager/presentation/register_truck/bloc/register_truck_bloc.dart';
+import 'package:parking_manager/parking_manager/domain/entities/parking_entity.dart';
+import 'package:parking_manager/parking_manager/presentation/register_parking/bloc/register_parking_bloc.dart';
 import 'package:parking_manager/shared/routes.dart';
 import 'package:parking_manager/shared/widgets/e_primary_button.dart';
 import 'package:parking_manager/shared/widgets/e_text_form_field.dart';
@@ -19,7 +19,7 @@ class RegisterPage extends StatelessWidget {
     TextEditingController vacancyController = TextEditingController();
     TextEditingController driverController = TextEditingController();
     TextEditingController checkoutValueController = TextEditingController();
-    TruckEntity truck;
+    ParkingEntity parking;
 
     return Scaffold(
       appBar: AppBar(
@@ -27,7 +27,7 @@ class RegisterPage extends StatelessWidget {
         automaticallyImplyLeading: true,
       ),
       resizeToAvoidBottomInset: false,
-      body: BlocConsumer<RegisterTruckBloc, RegisterTruckState>(
+      body: BlocConsumer<RegisterParkingBloc, RegisterParkingState>(
         listener: (context, state) {
           state.when(
             initial: () => null,
@@ -105,7 +105,7 @@ class RegisterPage extends StatelessWidget {
                 EPrimaryButton(
                   title: 'Salvar',
                   onPressed: () {
-                    truck = TruckEntity(
+                    parking = ParkingEntity(
                       plate: plateController.text,
                       // checkinTime: DateTime.tryParse(checkinTimeController.text)
                       //         ?.toLocal() ??
@@ -115,12 +115,9 @@ class RegisterPage extends StatelessWidget {
                       //             ?.toLocal() ??
                       //         DateTime.now(),
                       vacancy: vacancyController.text,
-                      driver: driverController.text,
-                      // checkoutValue:
-                      //     double.tryParse(checkoutValueController.text),
                     );
-                    context.read<RegisterTruckBloc>().add(
-                          RegisterNewTruckEvent(truck),
+                    context.read<RegisterParkingBloc>().add(
+                          RegisterNewParkingEvent(parking),
                         );
                   },
                 ),
