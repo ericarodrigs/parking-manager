@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:parking_manager/parking_manager/presentation/get_parking/bloc/get_parking_bloc.dart';
-import 'package:parking_manager/parking_manager/presentation/get_parking/grid_view_parking.dart';
+import 'package:parking_manager/parking_manager/presentation/get_parking_occupied/bloc/get_parking_occupied_bloc.dart';
+import 'package:parking_manager/parking_manager/presentation/get_parking_occupied/grid_view_parking.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,7 +19,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('Parking Manager'),
       ),
-      body: BlocBuilder<GetParkingBloc, GetParkingState>(
+      body: BlocBuilder<GetParkingOccupiedBloc, GetParkingOccupiedState>(
         builder: (context, state) {
           state.when(
               initial: () => finalView = const GridViewParking(

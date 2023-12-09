@@ -3,6 +3,7 @@ import 'package:parking_manager/parking_manager/domain/entities/parking_entity.d
 abstract class ParkingLocalDataSource {
   Future<bool> initDb();
   Future<List<ParkingEntity>> getParking();
+  Future<List<ParkingEntity>> getParkingOccupied();
   Future<bool> registerParking(ParkingEntity parkingEntity);
   Future<bool> updateParking(ParkingEntity parkingEntity);
   Future<bool> deleteParking(String id);

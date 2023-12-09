@@ -73,6 +73,15 @@ class ParkingLocalDataSourceSqflite implements ParkingLocalDataSource {
   }
 
   @override
+  Future<List<ParkingEntity>> getParkingOccupied() async {
+    final response =
+        await _db.rawQuery('SELECT * FROM $_parkingTable WHERE isOpen = 0');
+    return response
+        .map<ParkingEntity>((parking) => ParkingEntity.fromMap(parking))
+        .toList();
+  }
+
+  @override
   Future<bool> updateParking(ParkingEntity parkingEntity) {
     // TODO: implement updateParking
     throw UnimplementedError();

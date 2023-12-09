@@ -23,6 +23,16 @@ class ParkingRepositoryImpl implements ParkingRepository {
   }
 
   @override
+  Future<Either<Failure, List<ParkingEntity>>> getParkingOccupied() async {
+    try {
+      final response = await parkingLocalDataSource.getParkingOccupied();
+      return Right(response);
+    } on NoDataException {
+      return Left(NoDataFailure());
+    }
+  }
+
+  @override
   Future<Either<Failure, bool>> registerParking(
       ParkingEntity parkingEntity) async {
     try {
