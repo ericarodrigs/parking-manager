@@ -9,6 +9,7 @@ class ETextFormField extends StatelessWidget {
   final Function(String)? onChanged;
   final String? Function(String?)? validator;
   final Color borderColor;
+  final bool enabled;
 
   const ETextFormField({
     super.key,
@@ -20,6 +21,7 @@ class ETextFormField extends StatelessWidget {
     this.onChanged,
     this.validator,
     this.borderColor = Colors.grey,
+    this.enabled = true,
   });
 
   @override
@@ -29,6 +31,7 @@ class ETextFormField extends StatelessWidget {
       initialValue: initialValue,
       keyboardType: inputType,
       textInputAction: inputAction,
+      enabled: enabled,
       cursorColor: Colors.deepPurple,
       cursorHeight: 28,
       decoration: InputDecoration(

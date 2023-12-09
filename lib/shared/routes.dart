@@ -28,11 +28,14 @@ class AppRouter {
       GoRoute(
         path: registerParking,
         pageBuilder: (context, state) {
-          Map<String, int> args = state.extra as Map<String, int>;
+          Map<String, dynamic> args = state.extra as Map<String, dynamic>;
           return CustomTransitionPage(
             child: BlocProvider(
               create: (context) => injector<RegisterParkingBloc>(),
-              child: RegisterPage(vacancy: args['vacancy']!),
+              child: RegisterPage(
+                vacancy: args['vacancy']!,
+                parkingEntity: args['parkingEntity'],
+              ),
             ),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) =>

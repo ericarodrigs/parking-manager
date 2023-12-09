@@ -7,19 +7,31 @@ import 'package:parking_manager/shared/routes.dart';
 import 'package:parking_manager/shared/widgets/e_primary_button.dart';
 import 'package:parking_manager/shared/widgets/e_text_form_field.dart';
 import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 
 class RegisterPage extends StatelessWidget {
+  final ParkingEntity? parkingEntity;
   final int vacancy;
   const RegisterPage({
     super.key,
     required this.vacancy,
+    this.parkingEntity,
   });
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController plateController = TextEditingController();
-    TextEditingController checkinTimeController = TextEditingController();
-    TextEditingController checkoutTimeController = TextEditingController();
+    TextEditingController plateController =
+        TextEditingController(text: parkingEntity?.plate);
+    TextEditingController checkinTimeController = TextEditingController(
+      text: parkingEntity != null
+          ? DateTime.tryParse(parkingEntity!.checkinTime.toString()).toString()
+          : null,
+    );
+    TextEditingController checkoutTimeController = TextEditingController(
+      text: parkingEntity?.checkoutTime != null
+          ? DateTime.tryParse(parkingEntity!.checkoutTime.toString()).toString()
+          : null,
+    );
     ParkingEntity parking;
 
     return Scaffold(
@@ -39,7 +51,7 @@ class RegisterPage extends StatelessWidget {
                   content: Text("Added Successfully"),
                 ),
               );
-              GoRouter.of(context).go(AppRouter.root);
+              GoRouter.of(context).push(AppRouter.root);
             },
             failed: () => null,
           );
@@ -90,25 +102,24 @@ class RegisterPage extends StatelessWidget {
                 const SizedBox(height: 8),
                 ETextFormField(
                   hintText: 'Qual a vaga',
-                  initialValue: vacancy.toString(),
+                  enabled: false,
+                  initialValue: parkingEntity != null
+                      ? (parkingEntity!.vacancy + 1).toString()
+                      : (vacancy + 1).toString(),
                 ),
                 const Spacer(),
                 EPrimaryButton(
                   title: 'Salvar',
                   onPressed: () {
                     parking = ParkingEntity(
-                      plate: plateController.text,
-                      checkinTime: '',
-                      checkoutTime: '',
-                      // checkinTime: DateTime.tryParse(checkinTimeController.text)
-                      //         ?.toLocal() ??
-                      //     DateTime.now(),
-                      // checkoutTime:
-                      //     DateTime.tryParse(checkoutTimeController.text)
-                      //             ?.toLocal() ??
-                      //         DateTime.now(),
+                      plate: plateController.text.trim(),
+                      checkinTime:
+                          convertToTimestamp(checkinTimeController.text)!,
+                      checkoutTime:
+                          convertToTimestamp(checkoutTimeController.text),
                       vacancy: vacancy,
                     );
+                    print(parking);
                     context.read<RegisterParkingBloc>().add(
                           RegisterNewParkingEvent(parking),
                         );
@@ -120,5 +131,15 @@ class RegisterPage extends StatelessWidget {
         },
       ),
     );
+  }
+
+  int? convertToTimestamp(String date) {
+    if (date.isEmpty) return null;
+
+    DateTime dateTime = DateFormat("yyyy-MM-dd HH:mm").parse(date);
+
+    int timestamp = dateTime.millisecondsSinceEpoch;
+
+    return timestamp;
   }
 }

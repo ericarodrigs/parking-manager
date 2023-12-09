@@ -38,9 +38,10 @@ class ParkingLocalDataSourceSqflite implements ParkingLocalDataSource {
           CREATE TABLE $_parkingTable(
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           plate TEXT,
-          checkinTime TEXT,
-          checkoutTime TEXT,
-          vacancy INTEGER
+          checkinTime INTEGER,
+          checkoutTime INTEGER NULL,
+          vacancy INTEGER,
+          isOpen BOOLEAN DEFAULT 1
           )
         ''');
   }
@@ -48,25 +49,9 @@ class ParkingLocalDataSourceSqflite implements ParkingLocalDataSource {
   @override
   Future<bool> registerParking(ParkingEntity parkingEntity) async {
     try {
-      await _db.transaction(
-        (txn) async {
-          await txn.rawInsert('''
-          INSERT INTO $_parkingTable 
-          (
-          plate,
-          checkinTime,
-          checkoutTime,
-          vacancy
-          )
-          VALUES
-            (
-              "${parkingEntity.plate}",
-              "${parkingEntity.checkinTime}",
-              "${parkingEntity.checkoutTime}",
-              "${parkingEntity.vacancy}"
-            )''');
-        },
-      );
+      await _db.insert(_parkingTable, parkingEntity.toMap(),
+          conflictAlgorithm: ConflictAlgorithm.replace);
+
       return Future.value(true);
     } catch (e) {
       throw ConnectionException();
