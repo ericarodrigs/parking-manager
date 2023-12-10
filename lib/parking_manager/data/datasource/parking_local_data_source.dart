@@ -4,7 +4,6 @@ abstract class ParkingLocalDataSource {
   Future<bool> initDb();
   Future<List<ParkingEntity>> getParking();
   Future<List<ParkingEntity>> getParkingOccupied();
-  Future<bool> registerParking(ParkingEntity parkingEntity);
-  Future<bool> updateParking(ParkingEntity parkingEntity);
-  Future<bool> deleteParking(String id);
+  Future<void> registerParking(ParkingEntity parkingEntity);
+  Future<void> updateParking(ParkingEntity parkingEntity);
 }

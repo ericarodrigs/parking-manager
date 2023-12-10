@@ -5,15 +5,15 @@ import 'package:parking_manager/parking_manager/domain/repositories/parking_repo
 import 'package:parking_manager/shared/failure.dart';
 import 'package:parking_manager/shared/usecases.dart';
 
-class UpdateParking implements Usecases<bool, Params> {
+class UpdateParkingUseCase implements Usecases<void, Params> {
   final ParkingRepository repository;
 
-  UpdateParking({
+  UpdateParkingUseCase({
     required this.repository,
   });
 
   @override
-  Future<Either<Failure, bool>> call(Params params) async {
+  Future<Either<Failure, void>> call(Params params) async {
     return await repository.updateParking(params.parkingEntity);
   }
 }

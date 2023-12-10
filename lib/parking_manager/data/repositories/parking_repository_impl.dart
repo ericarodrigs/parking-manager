@@ -33,17 +33,11 @@ class ParkingRepositoryImpl implements ParkingRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> registerParking(
+  Future<Either<Failure, void>> registerParking(
       ParkingEntity parkingEntity) async {
     try {
-      final response = await parkingLocalDataSource.registerParking(
-        ParkingEntity(
-          plate: parkingEntity.plate,
-          checkinTime: parkingEntity.checkinTime,
-          checkoutTime: parkingEntity.checkoutTime,
-          vacancy: parkingEntity.vacancy,
-        ),
-      );
+      final response =
+          await parkingLocalDataSource.registerParking(parkingEntity);
       return Right(response);
     } on ConnectionException {
       return Left(DatabaseFailure());
@@ -51,26 +45,14 @@ class ParkingRepositoryImpl implements ParkingRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> updateParking(
+  Future<Either<Failure, void>> updateParking(
       ParkingEntity parkingEntity) async {
     try {
-      final response = await parkingLocalDataSource.updateParking(
-        ParkingEntity(
-          plate: parkingEntity.plate,
-          checkinTime: parkingEntity.checkinTime,
-          checkoutTime: parkingEntity.checkoutTime,
-          vacancy: parkingEntity.vacancy,
-        ),
-      );
+      final response =
+          await parkingLocalDataSource.updateParking(parkingEntity);
       return Right(response);
     } on ConnectionException {
       return Left(DatabaseFailure());
     }
-  }
-
-  @override
-  Future<Either<Failure, bool>> deleteParking(String id) {
-    // TODO: implement deleteParking
-    throw UnimplementedError();
   }
 }

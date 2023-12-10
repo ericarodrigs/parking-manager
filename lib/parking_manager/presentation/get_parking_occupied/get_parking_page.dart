@@ -17,6 +17,7 @@ class _HomePageState extends State<HomePage> {
     late Widget finalView;
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text('Parking Manager'),
       ),
       body: BlocBuilder<GetParkingOccupiedBloc, GetParkingOccupiedState>(

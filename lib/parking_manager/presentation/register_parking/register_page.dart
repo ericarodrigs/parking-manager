@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:parking_manager/parking_manager/domain/entities/parking_entity.dart';
 import 'package:parking_manager/parking_manager/presentation/register_parking/bloc/register_parking_bloc.dart';
+import 'package:parking_manager/parking_manager/presentation/update_parking/bloc/update_parking_bloc.dart';
 import 'package:parking_manager/shared/routes.dart';
 import 'package:parking_manager/shared/widgets/e_primary_button.dart';
 import 'package:parking_manager/shared/widgets/e_text_form_field.dart';
@@ -42,12 +43,8 @@ class RegisterPage extends StatelessWidget {
             initial: () => null,
             loading: () => null,
             success: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text("Added successfully"),
-                ),
-              );
-              GoRouter.of(context).push(AppRouter.root);
+              showSnackBar(context, "Added successfully");
+              GoRouter.of(context).pushReplacement(AppRouter.root);
             },
             failed: () => null,
           );
@@ -105,21 +102,52 @@ class RegisterPage extends StatelessWidget {
                       : (vacancy + 1).toString(),
                 ),
                 const Spacer(),
-                EPrimaryButton(
-                  title: 'Salvar',
-                  onPressed: () {
-                    parking = ParkingEntity(
-                      plate: plateController.text.trim(),
-                      checkinTime: checkinTimeController.text,
-                      checkoutTime: checkoutTimeController.text,
-                      vacancy: vacancy,
-                    );
-                    print(parking);
-                    context.read<RegisterParkingBloc>().add(
-                          RegisterNewParkingEvent(parking),
+                parkingEntity == null
+                    ? EPrimaryButton(
+                        title: 'Save',
+                        onPressed: () {
+                          parking = ParkingEntity(
+                            plate: plateController.text.trim(),
+                            checkinTime: checkinTimeController.text,
+                            checkoutTime: checkoutTimeController.text,
+                            vacancy: vacancy,
+                          );
+                          print(parking);
+                          context.read<RegisterParkingBloc>().add(
+                                RegisterNewParkingEvent(parking),
+                              );
+                        },
+                      )
+                    : BlocConsumer<UpdateParkingBloc, UpdateParkingState>(
+                        listener: (context, state) {
+                        state.when(
+                          initial: () => null,
+                          loading: () => null,
+                          success: () {
+                            showSnackBar(context, "Updated successfully");
+                            GoRouter.of(context)
+                                .pushReplacement(AppRouter.root);
+                          },
+                          failed: () => null,
                         );
-                  },
-                ),
+                      }, builder: (context, state) {
+                        return EPrimaryButton(
+                          title: 'Edit',
+                          onPressed: () {
+                            parking = ParkingEntity(
+                              id: parkingEntity!.id,
+                              plate: plateController.text.trim(),
+                              checkinTime: checkinTimeController.text,
+                              checkoutTime: checkoutTimeController.text,
+                              vacancy: vacancy,
+                            );
+                            print(parking);
+                            context.read<UpdateParkingBloc>().add(
+                                  UpdateNewParkingEvent(parking),
+                                );
+                          },
+                        );
+                      }),
               ],
             ),
           );
@@ -128,13 +156,12 @@ class RegisterPage extends StatelessWidget {
     );
   }
 
-  int? convertToTimestamp(String date) {
-    if (date.isEmpty) return null;
-
-    DateTime dateTime = DateFormat("yyyy-MM-dd HH:mm").parse(date);
-
-    int timestamp = dateTime.millisecondsSinceEpoch;
-
-    return timestamp;
+  void showSnackBar(BuildContext context, String text) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(text),
+        backgroundColor: Colors.deepPurple,
+      ),
+    );
   }
 }

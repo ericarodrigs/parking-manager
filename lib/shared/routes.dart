@@ -5,6 +5,7 @@ import 'package:parking_manager/parking_manager/presentation/get_parking_occupie
 import 'package:parking_manager/parking_manager/presentation/get_parking_occupied/get_parking_page.dart';
 import 'package:parking_manager/parking_manager/presentation/register_parking/bloc/register_parking_bloc.dart';
 import 'package:parking_manager/parking_manager/presentation/register_parking/register_page.dart';
+import 'package:parking_manager/parking_manager/presentation/update_parking/bloc/update_parking_bloc.dart';
 import 'package:parking_manager/shared/injector.dart';
 
 class AppRouter {
@@ -28,10 +29,16 @@ class AppRouter {
       GoRoute(
         path: registerParking,
         pageBuilder: (context, state) {
+          final registerBloc = injector<RegisterParkingBloc>();
+          final updateBloc = injector<UpdateParkingBloc>();
+
           Map<String, dynamic> args = state.extra as Map<String, dynamic>;
           return CustomTransitionPage(
-            child: BlocProvider(
-              create: (context) => injector<RegisterParkingBloc>(),
+            child: MultiBlocProvider(
+              providers: [
+                BlocProvider.value(value: registerBloc),
+                BlocProvider.value(value: updateBloc),
+              ],
               child: RegisterPage(
                 vacancy: args['vacancy']!,
                 parkingEntity: args['parkingEntity'],

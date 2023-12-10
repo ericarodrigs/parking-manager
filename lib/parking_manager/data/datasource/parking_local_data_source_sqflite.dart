@@ -47,21 +47,13 @@ class ParkingLocalDataSourceSqflite implements ParkingLocalDataSource {
   }
 
   @override
-  Future<bool> registerParking(ParkingEntity parkingEntity) async {
+  Future<void> registerParking(ParkingEntity parkingEntity) async {
     try {
       await _db.insert(_parkingTable, parkingEntity.toMap(),
           conflictAlgorithm: ConflictAlgorithm.replace);
-
-      return Future.value(true);
     } catch (e) {
       throw ConnectionException();
     }
-  }
-
-  @override
-  Future<bool> deleteParking(String id) {
-    // TODO: implement deleteParking
-    throw UnimplementedError();
   }
 
   @override
@@ -82,8 +74,16 @@ class ParkingLocalDataSourceSqflite implements ParkingLocalDataSource {
   }
 
   @override
-  Future<bool> updateParking(ParkingEntity parkingEntity) {
-    // TODO: implement updateParking
-    throw UnimplementedError();
+  Future<void> updateParking(ParkingEntity parkingEntity) async {
+    try {
+      await _db.update(
+        _parkingTable,
+        parkingEntity.toMap(),
+        where: 'id = ?',
+        whereArgs: [parkingEntity.id],
+      );
+    } catch (e) {
+      throw ConnectionException();
+    }
   }
 }

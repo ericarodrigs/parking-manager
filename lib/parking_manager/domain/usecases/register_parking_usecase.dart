@@ -5,7 +5,7 @@ import 'package:parking_manager/parking_manager/domain/repositories/parking_repo
 import 'package:parking_manager/shared/failure.dart';
 import 'package:parking_manager/shared/usecases.dart';
 
-class RegisterParkingUseCase implements Usecases<bool, Params> {
+class RegisterParkingUseCase implements Usecases<void, Params> {
   final ParkingRepository repository;
 
   RegisterParkingUseCase({
@@ -13,7 +13,7 @@ class RegisterParkingUseCase implements Usecases<bool, Params> {
   });
 
   @override
-  Future<Either<Failure, bool>> call(Params params) async {
+  Future<Either<Failure, void>> call(Params params) async {
     return await repository.registerParking(params.parkingEntity);
   }
 }
