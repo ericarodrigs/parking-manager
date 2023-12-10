@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:parking_manager/parking_manager/presentation/get_history/get_history_page.dart';
 import 'package:parking_manager/parking_manager/presentation/get_parking_occupied/bloc/get_parking_occupied_bloc.dart';
 import 'package:parking_manager/parking_manager/presentation/get_parking_occupied/get_parking_page.dart';
 import 'package:parking_manager/parking_manager/presentation/register_parking/bloc/register_parking_bloc.dart';
@@ -11,6 +12,7 @@ import 'package:parking_manager/shared/injector.dart';
 class AppRouter {
   static const root = '/';
   static const registerParking = '/registerParking';
+  static const history = '/history';
 
   static final GoRouter _router = GoRouter(
     routes: [
@@ -49,6 +51,14 @@ class AppRouter {
                     FadeTransition(opacity: animation, child: child),
           );
         },
+      ),
+      GoRoute(
+        path: history,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const GetHistoryPage(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+              FadeTransition(opacity: animation, child: child),
+        ),
       ),
     ],
   );
