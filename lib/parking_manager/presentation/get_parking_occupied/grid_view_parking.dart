@@ -10,6 +10,7 @@ class GridViewParking extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(parking);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Center(
@@ -18,42 +19,56 @@ class GridViewParking extends StatelessWidget {
             crossAxisCount: 2,
           ),
           itemCount: 20,
-          itemBuilder: (context, index) {
-            print(parking);
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: GestureDetector(
-                onTap: () => GoRouter.of(context).push(
-                  AppRouter.registerParking,
-                  extra: {'vacancy': index, 'parkingEntity': null},
-                ),
-                child: Container(
-                  width: 20,
-                  height: 20,
-                  color: readIsFreeParking(index, parking)
-                      ? Colors.deepPurple.withOpacity(0.5)
-                      : Colors.red.withOpacity(0.5),
-                  child: Center(
-                    child: readIsFreeParking(index, parking)
-                        ? Text('Vaga: ${index + 1} - Livre - ${parking.length}')
-                        : Text(
-                            'Vaga: ${index + 1} - Ocupada - ${parking.length}'),
-                  ),
-                ),
-              ),
-            );
+          itemBuilder: (BuildContext context, int index) {
+            ParkingEntity? parking = findParkingByPosition(index);
+            return parking != null
+                ? buildGridItem(context, index, parking)
+                : buildGridItemEmpty(context, index);
           },
         ),
       ),
     );
   }
 
-  bool readIsFreeParking(int index, List<ParkingEntity> parking) {
-    for (var element in parking) {
-      if (element.vacancy == index && element.checkoutTime == null) {
-        return false; //ocupada
+  ParkingEntity? findParkingByPosition(int position) {
+    ParkingEntity? result;
+    for (var park in parking) {
+      if (park.vacancy == position) {
+        result = park;
+        break;
       }
     }
-    return true;
+    return result;
+  }
+
+  Widget buildGridItem(
+      BuildContext context, int index, ParkingEntity parkingEntity) {
+    return GestureDetector(
+      onTap: () => GoRouter.of(context).push(
+        AppRouter.registerParking,
+        extra: {'vacancy': index, 'parkingEntity': parkingEntity},
+      ),
+      child: Card(
+        color: Colors.red.withOpacity(0.5),
+        child: Center(
+          child: Text('Vacancy ${index + 1} occupied'),
+        ),
+      ),
+    );
+  }
+
+  Widget buildGridItemEmpty(BuildContext context, int index) {
+    return GestureDetector(
+      onTap: () => GoRouter.of(context).push(
+        AppRouter.registerParking,
+        extra: {'vacancy': index, 'parkingEntity': null},
+      ),
+      child: Card(
+        color: Colors.deepPurple.withOpacity(0.5),
+        child: Center(
+          child: Text('Vacancy ${index + 1} free'),
+        ),
+      ),
+    );
   }
 }

@@ -1,8 +1,8 @@
 class ParkingEntity {
   final int? id;
   final String plate;
-  final int checkinTime;
-  final int? checkoutTime;
+  final String checkinTime;
+  final String? checkoutTime;
   final int vacancy;
   bool isOpen;
 
@@ -34,11 +34,11 @@ class ParkingEntity {
       'vacancy': vacancy,
     };
 
-    if (checkoutTime != null) {
+    if (checkoutTime != null && checkoutTime!.isNotEmpty) {
       map['checkoutTime'] = checkoutTime;
     }
 
-    isOpen = checkoutTime != null ? true : false;
+    isOpen = (checkoutTime != null && checkoutTime!.isNotEmpty) ? true : false;
     map['isOpen'] = isOpen ? 1 : 0;
     print(map);
     return map;

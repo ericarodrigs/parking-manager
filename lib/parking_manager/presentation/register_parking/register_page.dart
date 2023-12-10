@@ -22,21 +22,17 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     TextEditingController plateController =
         TextEditingController(text: parkingEntity?.plate);
-    TextEditingController checkinTimeController = TextEditingController(
-      text: parkingEntity != null
-          ? DateTime.tryParse(parkingEntity!.checkinTime.toString()).toString()
-          : null,
-    );
-    TextEditingController checkoutTimeController = TextEditingController(
-      text: parkingEntity?.checkoutTime != null
-          ? DateTime.tryParse(parkingEntity!.checkoutTime.toString()).toString()
-          : null,
-    );
+    TextEditingController checkinTimeController =
+        TextEditingController(text: parkingEntity?.checkinTime);
+    TextEditingController checkoutTimeController =
+        TextEditingController(text: parkingEntity?.checkoutTime);
     ParkingEntity parking;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Register Page'),
+        title: parkingEntity == null
+            ? const Text('Register')
+            : const Text('Update'),
         automaticallyImplyLeading: true,
       ),
       resizeToAvoidBottomInset: false,
@@ -48,7 +44,7 @@ class RegisterPage extends StatelessWidget {
             success: () {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Text("Added Successfully"),
+                  content: Text("Added successfully"),
                 ),
               );
               GoRouter.of(context).push(AppRouter.root);
@@ -62,7 +58,7 @@ class RegisterPage extends StatelessWidget {
             child: Column(
               children: [
                 ETextFormField(
-                  hintText: 'Placa',
+                  hintText: 'Plate',
                   controller: plateController,
                 ),
                 const SizedBox(height: 8),
@@ -77,9 +73,10 @@ class RegisterPage extends StatelessWidget {
                     firstDate: DateTime(2023),
                     lastDate: DateTime(2025),
                     icon: const Icon(Icons.event),
-                    dateLabelText: 'Data de entrada',
-                    timeLabelText: 'Hora',
+                    dateLabelText: 'Entry date',
+                    timeLabelText: 'Hour',
                     controller: checkinTimeController,
+                    readOnly: (parkingEntity != null),
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -94,8 +91,8 @@ class RegisterPage extends StatelessWidget {
                     firstDate: DateTime(2023),
                     lastDate: DateTime(2025),
                     icon: const Icon(Icons.event),
-                    dateLabelText: 'Data de saída',
-                    timeLabelText: 'Hora',
+                    dateLabelText: 'Exit date',
+                    timeLabelText: 'Hour',
                     controller: checkoutTimeController,
                   ),
                 ),
@@ -113,10 +110,8 @@ class RegisterPage extends StatelessWidget {
                   onPressed: () {
                     parking = ParkingEntity(
                       plate: plateController.text.trim(),
-                      checkinTime:
-                          convertToTimestamp(checkinTimeController.text)!,
-                      checkoutTime:
-                          convertToTimestamp(checkoutTimeController.text),
+                      checkinTime: checkinTimeController.text,
+                      checkoutTime: checkoutTimeController.text,
                       vacancy: vacancy,
                     );
                     print(parking);

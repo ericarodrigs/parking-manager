@@ -38,8 +38,8 @@ class ParkingLocalDataSourceSqflite implements ParkingLocalDataSource {
           CREATE TABLE $_parkingTable(
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           plate TEXT,
-          checkinTime INTEGER,
-          checkoutTime INTEGER NULL,
+          checkinTime TEXT,
+          checkoutTime TEXT NULL,
           vacancy INTEGER,
           isOpen BOOLEAN DEFAULT 1
           )
