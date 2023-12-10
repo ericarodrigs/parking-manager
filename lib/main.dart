@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:parking_manager/shared/app_colors.dart';
 import 'package:parking_manager/shared/injector.dart';
 import 'package:parking_manager/shared/routes.dart';
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Parking Manager',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
         useMaterial3: true,
       ),
       routeInformationProvider: AppRouter.router.routeInformationProvider,

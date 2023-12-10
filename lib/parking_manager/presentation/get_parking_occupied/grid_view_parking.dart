@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:parking_manager/parking_manager/domain/entities/parking_entity.dart';
+import 'package:parking_manager/shared/app_colors.dart';
 import 'package:parking_manager/shared/routes.dart';
 
 class GridViewParking extends StatelessWidget {
@@ -48,7 +49,7 @@ class GridViewParking extends StatelessWidget {
         extra: {'vacancy': index, 'parkingEntity': parkingEntity},
       ),
       child: Card(
-        color: Colors.red.withOpacity(0.5),
+        color: AppColors.redLight,
         child: Center(
           child: Text('Vacancy ${index + 1} occupied'),
         ),
@@ -63,7 +64,7 @@ class GridViewParking extends StatelessWidget {
         extra: {'vacancy': index, 'parkingEntity': null},
       ),
       child: Card(
-        color: Colors.deepPurple.withOpacity(0.5),
+        color: AppColors.primaryLight,
         child: Center(
           child: Text('Vacancy ${index + 1} free'),
         ),

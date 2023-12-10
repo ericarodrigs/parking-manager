@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:parking_manager/shared/app_colors.dart';
 
 class EPrimaryButton extends StatelessWidget {
   final String title;
@@ -14,7 +15,7 @@ class EPrimaryButton extends StatelessWidget {
     Key? key,
     required this.title,
     required this.onPressed,
-    this.borderColor = Colors.deepPurple,
+    this.borderColor = AppColors.primary,
     this.backgroundColor = Colors.transparent,
     this.shadowColor = Colors.transparent,
     this.textStyle,

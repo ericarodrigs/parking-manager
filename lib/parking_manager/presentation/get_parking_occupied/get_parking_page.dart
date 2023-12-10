@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:parking_manager/parking_manager/presentation/get_parking_occupied/bloc/get_parking_occupied_bloc.dart';
 import 'package:parking_manager/parking_manager/presentation/get_parking_occupied/grid_view_parking.dart';
+import 'package:parking_manager/shared/app_colors.dart';
 import 'package:parking_manager/shared/routes.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,7 +23,7 @@ class _HomePageState extends State<HomePage> {
         title: const Text('Parking Manager'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.calendar_month),
+            icon: const Icon(Icons.history),
             onPressed: () => GoRouter.of(context).push(AppRouter.history),
           ),
         ],
@@ -35,7 +36,7 @@ class _HomePageState extends State<HomePage> {
                   ),
               loading: () => finalView = const Center(
                     child: CircularProgressIndicator(
-                      color: Colors.deepPurple,
+                      color: AppColors.primary,
                     ),
                   ),
               loaded: (parking) =>

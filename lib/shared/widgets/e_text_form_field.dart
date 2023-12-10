@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:parking_manager/shared/app_colors.dart';
 
 class ETextFormField extends StatelessWidget {
   final String hintText;
@@ -20,7 +21,7 @@ class ETextFormField extends StatelessWidget {
     this.controller,
     this.onChanged,
     this.validator,
-    this.borderColor = Colors.grey,
+    this.borderColor = AppColors.primary,
     this.enabled = true,
   });
 
@@ -32,7 +33,7 @@ class ETextFormField extends StatelessWidget {
       keyboardType: inputType,
       textInputAction: inputAction,
       enabled: enabled,
-      cursorColor: Colors.deepPurple,
+      cursorColor: AppColors.primary,
       cursorHeight: 28,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.all(8),
@@ -52,4 +53,4 @@ class ETextFormField extends StatelessWidget {
 
 OutlineInputBorder border = OutlineInputBorder(
     borderRadius: BorderRadius.circular(5),
-    borderSide: const BorderSide(color: Colors.grey));
+    borderSide: const BorderSide(color: AppColors.primary));

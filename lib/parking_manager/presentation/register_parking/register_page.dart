@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:parking_manager/parking_manager/domain/entities/parking_entity.dart';
 import 'package:parking_manager/parking_manager/presentation/register_parking/bloc/register_parking_bloc.dart';
 import 'package:parking_manager/parking_manager/presentation/update_parking/bloc/update_parking_bloc.dart';
+import 'package:parking_manager/shared/app_colors.dart';
 import 'package:parking_manager/shared/routes.dart';
 import 'package:parking_manager/shared/widgets/e_primary_button.dart';
 import 'package:parking_manager/shared/widgets/e_text_form_field.dart';
@@ -61,7 +62,7 @@ class RegisterPage extends StatelessWidget {
                 const SizedBox(height: 8),
                 Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
+                    border: Border.all(color: AppColors.primary),
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: DateTimePicker(
@@ -79,7 +80,7 @@ class RegisterPage extends StatelessWidget {
                 const SizedBox(height: 8),
                 Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
+                    border: Border.all(color: AppColors.primary),
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: DateTimePicker(
@@ -160,7 +161,7 @@ class RegisterPage extends StatelessWidget {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(text),
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: AppColors.primary,
       ),
     );
   }
