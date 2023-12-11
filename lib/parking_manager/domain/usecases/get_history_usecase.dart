@@ -5,16 +5,16 @@ import 'package:parking_manager/parking_manager/domain/repositories/parking_repo
 import 'package:parking_manager/shared/failure.dart';
 import 'package:parking_manager/shared/usecases.dart';
 
-class GetParkingUseCase implements Usecases<List<ParkingEntity>, NoParams> {
+class GetHistoryUseCase implements Usecases<List<ParkingEntity>, NoParams> {
   final ParkingRepository repository;
 
-  GetParkingUseCase({
+  GetHistoryUseCase({
     required this.repository,
   });
 
   @override
   Future<Either<Failure, List<ParkingEntity>>> call(NoParams params) async {
-    return await repository.getParking();
+    return await repository.getHistory();
   }
 }
 

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'get_parking_bloc.dart';
+part of 'get_history_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,52 +15,52 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$GetParkingEvent {
+mixin _$GetHistoryEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getParking,
+    required TResult Function() getHistory,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getParking,
+    TResult? Function()? getHistory,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getParking,
+    TResult Function()? getHistory,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(GetAllParkingEvent value) getParking,
+    required TResult Function(GetAllHistoryEvent value) getHistory,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(GetAllParkingEvent value)? getParking,
+    TResult? Function(GetAllHistoryEvent value)? getHistory,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(GetAllParkingEvent value)? getParking,
+    TResult Function(GetAllHistoryEvent value)? getHistory,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $GetParkingEventCopyWith<$Res> {
-  factory $GetParkingEventCopyWith(
-          GetParkingEvent value, $Res Function(GetParkingEvent) then) =
-      _$GetParkingEventCopyWithImpl<$Res, GetParkingEvent>;
+abstract class $GetHistoryEventCopyWith<$Res> {
+  factory $GetHistoryEventCopyWith(
+          GetHistoryEvent value, $Res Function(GetHistoryEvent) then) =
+      _$GetHistoryEventCopyWithImpl<$Res, GetHistoryEvent>;
 }
 
 /// @nodoc
-class _$GetParkingEventCopyWithImpl<$Res, $Val extends GetParkingEvent>
-    implements $GetParkingEventCopyWith<$Res> {
-  _$GetParkingEventCopyWithImpl(this._value, this._then);
+class _$GetHistoryEventCopyWithImpl<$Res, $Val extends GetHistoryEvent>
+    implements $GetHistoryEventCopyWith<$Res> {
+  _$GetHistoryEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -69,35 +69,35 @@ class _$GetParkingEventCopyWithImpl<$Res, $Val extends GetParkingEvent>
 }
 
 /// @nodoc
-abstract class _$$GetAllParkingEventImplCopyWith<$Res> {
-  factory _$$GetAllParkingEventImplCopyWith(_$GetAllParkingEventImpl value,
-          $Res Function(_$GetAllParkingEventImpl) then) =
-      __$$GetAllParkingEventImplCopyWithImpl<$Res>;
+abstract class _$$GetAllHistoryEventImplCopyWith<$Res> {
+  factory _$$GetAllHistoryEventImplCopyWith(_$GetAllHistoryEventImpl value,
+          $Res Function(_$GetAllHistoryEventImpl) then) =
+      __$$GetAllHistoryEventImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$GetAllParkingEventImplCopyWithImpl<$Res>
-    extends _$GetParkingEventCopyWithImpl<$Res, _$GetAllParkingEventImpl>
-    implements _$$GetAllParkingEventImplCopyWith<$Res> {
-  __$$GetAllParkingEventImplCopyWithImpl(_$GetAllParkingEventImpl _value,
-      $Res Function(_$GetAllParkingEventImpl) _then)
+class __$$GetAllHistoryEventImplCopyWithImpl<$Res>
+    extends _$GetHistoryEventCopyWithImpl<$Res, _$GetAllHistoryEventImpl>
+    implements _$$GetAllHistoryEventImplCopyWith<$Res> {
+  __$$GetAllHistoryEventImplCopyWithImpl(_$GetAllHistoryEventImpl _value,
+      $Res Function(_$GetAllHistoryEventImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$GetAllParkingEventImpl implements GetAllParkingEvent {
-  const _$GetAllParkingEventImpl();
+class _$GetAllHistoryEventImpl implements GetAllHistoryEvent {
+  const _$GetAllHistoryEventImpl();
 
   @override
   String toString() {
-    return 'GetParkingEvent.getParking()';
+    return 'GetHistoryEvent.getHistory()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$GetAllParkingEventImpl);
+        (other.runtimeType == runtimeType && other is _$GetAllHistoryEventImpl);
   }
 
   @override
@@ -106,27 +106,27 @@ class _$GetAllParkingEventImpl implements GetAllParkingEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getParking,
+    required TResult Function() getHistory,
   }) {
-    return getParking();
+    return getHistory();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getParking,
+    TResult? Function()? getHistory,
   }) {
-    return getParking?.call();
+    return getHistory?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getParking,
+    TResult Function()? getHistory,
     required TResult orElse(),
   }) {
-    if (getParking != null) {
-      return getParking();
+    if (getHistory != null) {
+      return getHistory();
     }
     return orElse();
   }
@@ -134,38 +134,38 @@ class _$GetAllParkingEventImpl implements GetAllParkingEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(GetAllParkingEvent value) getParking,
+    required TResult Function(GetAllHistoryEvent value) getHistory,
   }) {
-    return getParking(this);
+    return getHistory(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(GetAllParkingEvent value)? getParking,
+    TResult? Function(GetAllHistoryEvent value)? getHistory,
   }) {
-    return getParking?.call(this);
+    return getHistory?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(GetAllParkingEvent value)? getParking,
+    TResult Function(GetAllHistoryEvent value)? getHistory,
     required TResult orElse(),
   }) {
-    if (getParking != null) {
-      return getParking(this);
+    if (getHistory != null) {
+      return getHistory(this);
     }
     return orElse();
   }
 }
 
-abstract class GetAllParkingEvent implements GetParkingEvent {
-  const factory GetAllParkingEvent() = _$GetAllParkingEventImpl;
+abstract class GetAllHistoryEvent implements GetHistoryEvent {
+  const factory GetAllHistoryEvent() = _$GetAllHistoryEventImpl;
 }
 
 /// @nodoc
-mixin _$GetParkingState {
+mixin _$GetHistoryState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
@@ -219,16 +219,16 @@ mixin _$GetParkingState {
 }
 
 /// @nodoc
-abstract class $GetParkingStateCopyWith<$Res> {
-  factory $GetParkingStateCopyWith(
-          GetParkingState value, $Res Function(GetParkingState) then) =
-      _$GetParkingStateCopyWithImpl<$Res, GetParkingState>;
+abstract class $GetHistoryStateCopyWith<$Res> {
+  factory $GetHistoryStateCopyWith(
+          GetHistoryState value, $Res Function(GetHistoryState) then) =
+      _$GetHistoryStateCopyWithImpl<$Res, GetHistoryState>;
 }
 
 /// @nodoc
-class _$GetParkingStateCopyWithImpl<$Res, $Val extends GetParkingState>
-    implements $GetParkingStateCopyWith<$Res> {
-  _$GetParkingStateCopyWithImpl(this._value, this._then);
+class _$GetHistoryStateCopyWithImpl<$Res, $Val extends GetHistoryState>
+    implements $GetHistoryStateCopyWith<$Res> {
+  _$GetHistoryStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -245,7 +245,7 @@ abstract class _$$InitialImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$GetParkingStateCopyWithImpl<$Res, _$InitialImpl>
+    extends _$GetHistoryStateCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
@@ -259,7 +259,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'GetParkingState.initial()';
+    return 'GetHistoryState.initial()';
   }
 
   @override
@@ -346,7 +346,7 @@ class _$InitialImpl implements _Initial {
   }
 }
 
-abstract class _Initial implements GetParkingState {
+abstract class _Initial implements GetHistoryState {
   const factory _Initial() = _$InitialImpl;
 }
 
@@ -359,7 +359,7 @@ abstract class _$$LoadingImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$GetParkingStateCopyWithImpl<$Res, _$LoadingImpl>
+    extends _$GetHistoryStateCopyWithImpl<$Res, _$LoadingImpl>
     implements _$$LoadingImplCopyWith<$Res> {
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
@@ -373,7 +373,7 @@ class _$LoadingImpl implements _Loading {
 
   @override
   String toString() {
-    return 'GetParkingState.loading()';
+    return 'GetHistoryState.loading()';
   }
 
   @override
@@ -460,7 +460,7 @@ class _$LoadingImpl implements _Loading {
   }
 }
 
-abstract class _Loading implements GetParkingState {
+abstract class _Loading implements GetHistoryState {
   const factory _Loading() = _$LoadingImpl;
 }
 
@@ -475,7 +475,7 @@ abstract class _$$LoadedImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$LoadedImplCopyWithImpl<$Res>
-    extends _$GetParkingStateCopyWithImpl<$Res, _$LoadedImpl>
+    extends _$GetHistoryStateCopyWithImpl<$Res, _$LoadedImpl>
     implements _$$LoadedImplCopyWith<$Res> {
   __$$LoadedImplCopyWithImpl(
       _$LoadedImpl _value, $Res Function(_$LoadedImpl) _then)
@@ -510,7 +510,7 @@ class _$LoadedImpl implements _Loaded {
 
   @override
   String toString() {
-    return 'GetParkingState.loaded(parking: $parking)';
+    return 'GetHistoryState.loaded(parking: $parking)';
   }
 
   @override
@@ -606,7 +606,7 @@ class _$LoadedImpl implements _Loaded {
   }
 }
 
-abstract class _Loaded implements GetParkingState {
+abstract class _Loaded implements GetHistoryState {
   const factory _Loaded(final List<ParkingEntity> parking) = _$LoadedImpl;
 
   List<ParkingEntity> get parking;
@@ -624,7 +624,7 @@ abstract class _$$FailedImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$FailedImplCopyWithImpl<$Res>
-    extends _$GetParkingStateCopyWithImpl<$Res, _$FailedImpl>
+    extends _$GetHistoryStateCopyWithImpl<$Res, _$FailedImpl>
     implements _$$FailedImplCopyWith<$Res> {
   __$$FailedImplCopyWithImpl(
       _$FailedImpl _value, $Res Function(_$FailedImpl) _then)
@@ -638,7 +638,7 @@ class _$FailedImpl implements _Failed {
 
   @override
   String toString() {
-    return 'GetParkingState.error()';
+    return 'GetHistoryState.error()';
   }
 
   @override
@@ -725,6 +725,6 @@ class _$FailedImpl implements _Failed {
   }
 }
 
-abstract class _Failed implements GetParkingState {
+abstract class _Failed implements GetHistoryState {
   const factory _Failed() = _$FailedImpl;
 }

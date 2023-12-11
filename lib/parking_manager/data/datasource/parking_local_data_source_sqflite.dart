@@ -59,7 +59,7 @@ class ParkingLocalDataSourceSqflite implements ParkingLocalDataSource {
   }
 
   @override
-  Future<List<ParkingEntity>> getParking() async {
+  Future<List<ParkingEntity>> getHistory() async {
     String currentDate =
         DateTime.now().toLocal().toIso8601String().split('T')[0];
 

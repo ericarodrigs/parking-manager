@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:parking_manager/parking_manager/domain/entities/parking_entity.dart';
-import 'package:parking_manager/parking_manager/presentation/get_parking/bloc/get_parking_bloc.dart';
+import 'package:parking_manager/parking_manager/presentation/get_history/bloc/get_history_bloc.dart';
 import 'package:parking_manager/shared/app_colors.dart';
 
 class GetHistoryPage extends StatelessWidget {
@@ -17,7 +17,7 @@ class GetHistoryPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('History'),
       ),
-      body: BlocBuilder<GetParkingBloc, GetParkingState>(
+      body: BlocBuilder<GetHistoryBloc, GetHistoryState>(
         builder: (context, state) {
           state.when(
             initial: () =>
