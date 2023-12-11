@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:parking_manager/parking_manager/presentation/get_history/get_history_page.dart';
+import 'package:parking_manager/parking_manager/presentation/get_parking/bloc/get_parking_bloc.dart';
 import 'package:parking_manager/parking_manager/presentation/get_parking_occupied/bloc/get_parking_occupied_bloc.dart';
 import 'package:parking_manager/parking_manager/presentation/get_parking_occupied/get_parking_page.dart';
 import 'package:parking_manager/parking_manager/presentation/register_parking/bloc/register_parking_bloc.dart';
@@ -55,7 +56,11 @@ class AppRouter {
       GoRoute(
         path: history,
         pageBuilder: (context, state) => CustomTransitionPage(
-          child: const GetHistoryPage(),
+          child: BlocProvider(
+            create: (context) =>
+                injector<GetParkingBloc>()..add(const GetAllParkingEvent()),
+            child: const GetHistoryPage(),
+          ),
           transitionsBuilder: (context, animation, secondaryAnimation, child) =>
               FadeTransition(opacity: animation, child: child),
         ),

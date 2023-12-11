@@ -34,7 +34,7 @@ class ParkingLocalDataSourceSqflite implements ParkingLocalDataSource {
   }
 
   Future<void> _initParkingTable(Database db) async {
-    await db.execute('''
+    String query = '''
           CREATE TABLE $_parkingTable(
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           plate TEXT,
@@ -43,7 +43,9 @@ class ParkingLocalDataSourceSqflite implements ParkingLocalDataSource {
           vacancy INTEGER,
           isOpen BOOLEAN DEFAULT 1
           )
-        ''');
+        ''';
+
+    await db.execute(query);
   }
 
   @override
@@ -58,16 +60,29 @@ class ParkingLocalDataSourceSqflite implements ParkingLocalDataSource {
 
   @override
   Future<List<ParkingEntity>> getParking() async {
-    final response = await _db.rawQuery('SELECT * FROM $_parkingTable');
-    return response
+    String currentDate =
+        DateTime.now().toLocal().toIso8601String().split('T')[0];
+
+    String query = '''
+    SELECT id, plate, checkinTime, checkoutTime, vacancy, isOpen, 
+      (julianday(checkoutTime) - julianday(checkinTime)) * 24 AS parkingTimeHours
+    FROM $_parkingTable
+    WHERE checkoutTime IS NOT NULL
+    AND isOpen = 1
+    AND DATE(checkoutTime) >= '$currentDate';
+  ''';
+
+    List<Map<String, dynamic>> result = await _db.rawQuery(query);
+    return result
         .map<ParkingEntity>((parking) => ParkingEntity.fromMap(parking))
         .toList();
   }
 
   @override
   Future<List<ParkingEntity>> getParkingOccupied() async {
-    final response =
-        await _db.rawQuery('SELECT * FROM $_parkingTable WHERE isOpen = 0');
+    String query = 'SELECT * FROM $_parkingTable WHERE isOpen = 0';
+
+    final response = await _db.rawQuery(query);
     return response
         .map<ParkingEntity>((parking) => ParkingEntity.fromMap(parking))
         .toList();

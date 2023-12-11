@@ -5,6 +5,8 @@ class ParkingEntity {
   final String? checkoutTime;
   final int vacancy;
   bool isOpen;
+  double? parkingTimeHours;
+  double? parkingCost;
 
   ParkingEntity({
     this.id,
@@ -13,6 +15,8 @@ class ParkingEntity {
     required this.vacancy,
     this.checkoutTime,
     this.isOpen = true,
+    this.parkingTimeHours,
+    this.parkingCost,
   });
 
   factory ParkingEntity.fromMap(Map<String, dynamic> map) {
@@ -21,8 +25,12 @@ class ParkingEntity {
       plate: map['plate'],
       checkinTime: map['checkinTime'],
       checkoutTime: map['checkoutTime'],
+      parkingTimeHours: map['parkingTimeHours'],
       vacancy: map['vacancy'],
       isOpen: map['isOpen'] == 1,
+      parkingCost: map['parkingTimeHours'] != null
+          ? (map['parkingTimeHours']).ceil() * 10.0
+          : 0.0,
     );
   }
 
@@ -37,6 +45,9 @@ class ParkingEntity {
     if (checkoutTime != null && checkoutTime!.isNotEmpty) {
       map['checkoutTime'] = checkoutTime;
     }
+    if (parkingTimeHours != null) {
+      map['parkingCost'] = parkingTimeHours;
+    }
 
     isOpen = (checkoutTime != null && checkoutTime!.isNotEmpty) ? true : false;
     map['isOpen'] = isOpen ? 1 : 0;
@@ -46,6 +57,6 @@ class ParkingEntity {
 
   @override
   String toString() {
-    return 'ParkingEntity {id: $id, plate: $plate, checkinTime: $checkinTime, checkoutTime: $checkoutTime, vacancy: $vacancy, isOpen: $isOpen}';
+    return 'ParkingEntity {id: $id, plate: $plate, checkinTime: $checkinTime, checkoutTime: $checkoutTime, vacancy: $vacancy, isOpen: $isOpen, parkingTimeHours: $parkingTimeHours}, parkingCost: $parkingCost';
   }
 }
