@@ -76,6 +76,13 @@ flutter:
   assets:
     - assets/
 
+  fonts:
+    - family: Quicksand
+      fonts:
+        - asset: fonts/quicksand/Quicksand-Regular.ttf
+        - asset: fonts/quicksand/Quicksand-Bold.ttf
+          weight: 700
+
 flutter_icons:
   android: true
   ios: true

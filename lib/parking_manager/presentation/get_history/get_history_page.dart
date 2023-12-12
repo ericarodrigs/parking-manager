@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:parking_manager/parking_manager/domain/entities/parking_entity.dart';
 import 'package:parking_manager/parking_manager/presentation/get_history/bloc/get_history_bloc.dart';
 import 'package:parking_manager/shared/app_colors.dart';
+import 'package:parking_manager/shared/app_text_styles.dart';
 
 class GetHistoryPage extends StatelessWidget {
   const GetHistoryPage({
@@ -15,7 +16,10 @@ class GetHistoryPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('History'),
+        title: Text(
+          'History',
+          style: AppTextStyles.bold24black(),
+        ),
       ),
       body: BlocBuilder<GetHistoryBloc, GetHistoryState>(
         builder: (context, state) {
@@ -29,7 +33,11 @@ class GetHistoryPage extends StatelessWidget {
             ),
             loaded: (parking) =>
                 finalView = HistoryListView(parkingHistoryList: parking),
-            error: () => finalView = const Center(child: Text('error')),
+            error: () => finalView = Center(
+                child: Text(
+              'error',
+              style: AppTextStyles.bold24black(),
+            )),
           );
           return finalView;
         },
@@ -54,12 +62,15 @@ class HistoryListView extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(24),
-          child: Card(
-            color: AppColors.greyLight,
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: showTotalCost(parkingHistoryList),
+          padding: const EdgeInsets.all(16),
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: Card(
+              color: AppColors.greyLight,
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: showTotalCost(parkingHistoryList),
+              ),
             ),
           ),
         ),
@@ -71,7 +82,11 @@ class HistoryListView extends StatelessWidget {
     double totalCost = parkingHistoryList.fold(
         0.0, (sum, row) => sum + ((row.parkingCost) ?? 0.0));
 
-    return Text('O valor total do dia foi: R\$ $totalCost');
+    return Text(
+      'The total value of the day was:\nR\$ ${totalCost.toStringAsFixed(2)}',
+      style: AppTextStyles.bold16white(),
+      textAlign: TextAlign.center,
+    );
   }
 }
 
@@ -84,29 +99,47 @@ class ParkingHistoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: AppColors.primaryLight,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Placa: ${parkingEntity.plate}'),
-                Text('Vaga: ${parkingEntity.vacancy + 1}'),
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Checkin: ${parkingEntity.checkinTime}'),
-                Text('Checkout: ${parkingEntity.checkoutTime}'),
-                Text('Valor Pago: ${parkingEntity.parkingCost}'),
-              ],
-            ),
-          ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Card(
+        color: AppColors.primaryLight,
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Plate: ${parkingEntity.plate}',
+                style: AppTextStyles.bold16white(),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                'Vacancy: ${parkingEntity.vacancy + 1}',
+                style: AppTextStyles.bold16white(),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                'Checkin: ${parkingEntity.checkinTime}',
+                style: AppTextStyles.bold16white(),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                'Checkout: ${parkingEntity.checkoutTime}',
+                style: AppTextStyles.bold16white(),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Divider(
+                  thickness: 2,
+                  color: AppColors.primaryLight,
+                ),
+              ),
+              Text(
+                'Value paid: R\$ ${parkingEntity.parkingCost?.toStringAsFixed(2)}',
+                style: AppTextStyles.bold16white(),
+              ),
+            ],
+          ),
         ),
       ),
     );

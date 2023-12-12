@@ -5,6 +5,7 @@ import 'package:parking_manager/parking_manager/domain/entities/parking_entity.d
 import 'package:parking_manager/parking_manager/presentation/register_parking/bloc/register_parking_bloc.dart';
 import 'package:parking_manager/parking_manager/presentation/update_parking/bloc/update_parking_bloc.dart';
 import 'package:parking_manager/shared/app_colors.dart';
+import 'package:parking_manager/shared/app_text_styles.dart';
 import 'package:parking_manager/shared/routes.dart';
 import 'package:parking_manager/shared/widgets/e_primary_button.dart';
 import 'package:parking_manager/shared/widgets/e_text_form_field.dart';
@@ -33,8 +34,14 @@ class RegisterPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: parkingEntity == null
-            ? const Text('Register')
-            : const Text('Update'),
+            ? Text(
+                'Register',
+                style: AppTextStyles.bold24black(),
+              )
+            : Text(
+                'Update',
+                style: AppTextStyles.bold24black(),
+              ),
         automaticallyImplyLeading: true,
       ),
       resizeToAvoidBottomInset: false,

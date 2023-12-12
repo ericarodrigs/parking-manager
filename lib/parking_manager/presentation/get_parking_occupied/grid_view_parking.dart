@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:parking_manager/parking_manager/domain/entities/parking_entity.dart';
 import 'package:parking_manager/shared/app_colors.dart';
+import 'package:parking_manager/shared/app_text_styles.dart';
 import 'package:parking_manager/shared/routes.dart';
 
 class GridViewParking extends StatelessWidget {
@@ -16,9 +17,9 @@ class GridViewParking extends StatelessWidget {
       child: Center(
         child: GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
+            crossAxisCount: 3,
           ),
-          itemCount: 20,
+          itemCount: 21,
           itemBuilder: (BuildContext context, int index) {
             ParkingEntity? parking = findParkingByPosition(index);
             return parking != null
@@ -51,7 +52,11 @@ class GridViewParking extends StatelessWidget {
       child: Card(
         color: AppColors.redLight,
         child: Center(
-          child: Text('Vacancy ${index + 1} occupied'),
+          child: Text(
+            'Vacancy ${index + 1} \nOccupied',
+            style: AppTextStyles.medium14white(),
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     );
@@ -66,7 +71,11 @@ class GridViewParking extends StatelessWidget {
       child: Card(
         color: AppColors.primaryLight,
         child: Center(
-          child: Text('Vacancy ${index + 1} free'),
+          child: Text(
+            'Vacancy ${index + 1} \nFree',
+            style: AppTextStyles.medium14white(),
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     );
