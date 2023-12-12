@@ -10,7 +10,6 @@ import 'package:parking_manager/shared/routes.dart';
 import 'package:parking_manager/shared/widgets/e_primary_button.dart';
 import 'package:parking_manager/shared/widgets/e_text_form_field.dart';
 import 'package:date_time_picker/date_time_picker.dart';
-import 'package:intl/intl.dart';
 
 class RegisterPage extends StatelessWidget {
   final ParkingEntity? parkingEntity;
@@ -120,7 +119,6 @@ class RegisterPage extends StatelessWidget {
                             checkoutTime: checkoutTimeController.text,
                             vacancy: vacancy,
                           );
-                          print(parking);
                           context.read<RegisterParkingBloc>().add(
                                 RegisterNewParkingEvent(parking),
                               );
@@ -149,7 +147,6 @@ class RegisterPage extends StatelessWidget {
                               checkoutTime: checkoutTimeController.text,
                               vacancy: vacancy,
                             );
-                            print(parking);
                             context.read<UpdateParkingBloc>().add(
                                   UpdateNewParkingEvent(parking),
                                 );

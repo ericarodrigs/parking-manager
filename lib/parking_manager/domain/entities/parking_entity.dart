@@ -51,7 +51,6 @@ class ParkingEntity {
 
     isOpen = (checkoutTime != null && checkoutTime!.isNotEmpty) ? true : false;
     map['isOpen'] = isOpen ? 1 : 0;
-    print(map);
     return map;
   }
 

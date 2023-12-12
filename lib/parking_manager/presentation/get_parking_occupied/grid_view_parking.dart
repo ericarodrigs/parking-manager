@@ -11,7 +11,6 @@ class GridViewParking extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(parking);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Center(

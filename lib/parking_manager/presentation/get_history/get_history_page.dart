@@ -79,8 +79,8 @@ class HistoryListView extends StatelessWidget {
   }
 
   Text showTotalCost(List<ParkingEntity> parkingHistoryList) {
-    double totalCost = parkingHistoryList.fold(
-        0.0, (sum, row) => sum + ((row.parkingCost) ?? 0.0));
+    double totalCost = parkingHistoryList.fold(0.0,
+        (sum, parkintEntity) => sum + ((parkintEntity.parkingCost) ?? 0.0));
 
     return Text(
       'The total value of the day was:\nR\$ ${totalCost.toStringAsFixed(2)}',
