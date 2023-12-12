@@ -13,9 +13,10 @@ class ParkingRepositoryImpl implements ParkingRepository {
   });
 
   @override
-  Future<Either<Failure, List<ParkingEntity>>> getHistory() async {
+  Future<Either<Failure, List<ParkingEntity>>> getHistory(
+      String dateSearch) async {
     try {
-      final response = await parkingLocalDataSource.getHistory();
+      final response = await parkingLocalDataSource.getHistory(dateSearch);
       return Right(response);
     } on NoDataException {
       return Left(NoDataFailure());

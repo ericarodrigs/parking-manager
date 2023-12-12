@@ -57,8 +57,8 @@ class AppRouter {
         path: history,
         pageBuilder: (context, state) => CustomTransitionPage(
           child: BlocProvider(
-            create: (context) =>
-                injector<GetHistoryBloc>()..add(const GetAllHistoryEvent()),
+            create: (context) => injector<GetHistoryBloc>()
+              ..add(GetAllHistoryEvent(getCurrentDate())),
             child: const GetHistoryPage(),
           ),
           transitionsBuilder: (context, animation, secondaryAnimation, child) =>
@@ -67,6 +67,9 @@ class AppRouter {
       ),
     ],
   );
+
+  static String getCurrentDate() =>
+      DateTime.now().toLocal().toIso8601String().split('T')[0];
 
   static GoRouter get router => _router;
 }

@@ -16,19 +16,20 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$GetHistoryEvent {
+  String get dateSearch => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getHistory,
+    required TResult Function(String dateSearch) getHistory,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getHistory,
+    TResult? Function(String dateSearch)? getHistory,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getHistory,
+    TResult Function(String dateSearch)? getHistory,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -48,6 +49,10 @@ mixin _$GetHistoryEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $GetHistoryEventCopyWith<GetHistoryEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -55,6 +60,8 @@ abstract class $GetHistoryEventCopyWith<$Res> {
   factory $GetHistoryEventCopyWith(
           GetHistoryEvent value, $Res Function(GetHistoryEvent) then) =
       _$GetHistoryEventCopyWithImpl<$Res, GetHistoryEvent>;
+  @useResult
+  $Res call({String dateSearch});
 }
 
 /// @nodoc
@@ -66,13 +73,30 @@ class _$GetHistoryEventCopyWithImpl<$Res, $Val extends GetHistoryEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? dateSearch = null,
+  }) {
+    return _then(_value.copyWith(
+      dateSearch: null == dateSearch
+          ? _value.dateSearch
+          : dateSearch // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$GetAllHistoryEventImplCopyWith<$Res> {
+abstract class _$$GetAllHistoryEventImplCopyWith<$Res>
+    implements $GetHistoryEventCopyWith<$Res> {
   factory _$$GetAllHistoryEventImplCopyWith(_$GetAllHistoryEventImpl value,
           $Res Function(_$GetAllHistoryEventImpl) then) =
       __$$GetAllHistoryEventImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String dateSearch});
 }
 
 /// @nodoc
@@ -82,51 +106,77 @@ class __$$GetAllHistoryEventImplCopyWithImpl<$Res>
   __$$GetAllHistoryEventImplCopyWithImpl(_$GetAllHistoryEventImpl _value,
       $Res Function(_$GetAllHistoryEventImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? dateSearch = null,
+  }) {
+    return _then(_$GetAllHistoryEventImpl(
+      null == dateSearch
+          ? _value.dateSearch
+          : dateSearch // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$GetAllHistoryEventImpl implements GetAllHistoryEvent {
-  const _$GetAllHistoryEventImpl();
+  const _$GetAllHistoryEventImpl(this.dateSearch);
+
+  @override
+  final String dateSearch;
 
   @override
   String toString() {
-    return 'GetHistoryEvent.getHistory()';
+    return 'GetHistoryEvent.getHistory(dateSearch: $dateSearch)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$GetAllHistoryEventImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$GetAllHistoryEventImpl &&
+            (identical(other.dateSearch, dateSearch) ||
+                other.dateSearch == dateSearch));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, dateSearch);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetAllHistoryEventImplCopyWith<_$GetAllHistoryEventImpl> get copyWith =>
+      __$$GetAllHistoryEventImplCopyWithImpl<_$GetAllHistoryEventImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getHistory,
+    required TResult Function(String dateSearch) getHistory,
   }) {
-    return getHistory();
+    return getHistory(dateSearch);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getHistory,
+    TResult? Function(String dateSearch)? getHistory,
   }) {
-    return getHistory?.call();
+    return getHistory?.call(dateSearch);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getHistory,
+    TResult Function(String dateSearch)? getHistory,
     required TResult orElse(),
   }) {
     if (getHistory != null) {
-      return getHistory();
+      return getHistory(dateSearch);
     }
     return orElse();
   }
@@ -161,7 +211,15 @@ class _$GetAllHistoryEventImpl implements GetAllHistoryEvent {
 }
 
 abstract class GetAllHistoryEvent implements GetHistoryEvent {
-  const factory GetAllHistoryEvent() = _$GetAllHistoryEventImpl;
+  const factory GetAllHistoryEvent(final String dateSearch) =
+      _$GetAllHistoryEventImpl;
+
+  @override
+  String get dateSearch;
+  @override
+  @JsonKey(ignore: true)
+  _$$GetAllHistoryEventImplCopyWith<_$GetAllHistoryEventImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

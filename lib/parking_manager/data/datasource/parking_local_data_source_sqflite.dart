@@ -59,17 +59,14 @@ class ParkingLocalDataSourceSqflite implements ParkingLocalDataSource {
   }
 
   @override
-  Future<List<ParkingEntity>> getHistory() async {
-    String currentDate =
-        DateTime.now().toLocal().toIso8601String().split('T')[0];
-
+  Future<List<ParkingEntity>> getHistory(String dateSearch) async {
     String query = '''
     SELECT id, plate, checkinTime, checkoutTime, vacancy, isOpen, 
       (julianday(checkoutTime) - julianday(checkinTime)) * 24 AS parkingTimeHours
     FROM $_parkingTable
     WHERE checkoutTime IS NOT NULL
     AND isOpen = 1
-    AND DATE(checkoutTime) >= '$currentDate';
+    AND DATE(checkoutTime) = '$dateSearch';
   ''';
 
     List<Map<String, dynamic>> result = await _db.rawQuery(query);

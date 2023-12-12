@@ -1,3 +1,4 @@
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:parking_manager/parking_manager/domain/entities/parking_entity.dart';
@@ -12,6 +13,8 @@ class GetHistoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final historyBloc = BlocProvider.of<GetHistoryBloc>(context);
+
     late Widget finalView;
 
     return Scaffold(
@@ -20,6 +23,17 @@ class GetHistoryPage extends StatelessWidget {
           'History',
           style: AppTextStyles.bold24black(),
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: IconButton(
+              icon: const Icon(Icons.calendar_month),
+              onPressed: () {
+                showDataPicker(context, historyBloc);
+              },
+            ),
+          ),
+        ],
       ),
       body: BlocBuilder<GetHistoryBloc, GetHistoryState>(
         builder: (context, state) {
@@ -44,11 +58,57 @@ class GetHistoryPage extends StatelessWidget {
       ),
     );
   }
+
+  void showDataPicker(BuildContext context, GetHistoryBloc historyBloc) {
+    TextEditingController dateController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: DateTimePicker(
+            type: DateTimePickerType.date,
+            dateMask: 'd MMM, yyyy',
+            firstDate: DateTime(2023),
+            lastDate: DateTime(2025),
+            icon: const Icon(Icons.event),
+            dateLabelText: 'Entry date',
+            controller: dateController,
+          ),
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ElevatedButton(
+                  child: const Text('Cancel'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                ElevatedButton(
+                  child: const Text('Search'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    historyBloc.add(
+                      GetAllHistoryEvent(dateController.text),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
 
 class HistoryListView extends StatelessWidget {
   final List<ParkingEntity> parkingHistoryList;
-  const HistoryListView({super.key, required this.parkingHistoryList});
+  const HistoryListView({
+    super.key,
+    required this.parkingHistoryList,
+  });
 
   @override
   Widget build(BuildContext context) {

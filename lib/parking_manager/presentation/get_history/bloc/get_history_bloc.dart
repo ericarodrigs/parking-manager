@@ -16,7 +16,7 @@ class GetHistoryBloc extends Bloc<GetHistoryEvent, GetHistoryState> {
       if (event is GetAllHistoryEvent) {
         emit(const GetHistoryState.loading());
         final result = await getHistoryUseCase(
-          NoParams(),
+          Params(dateSearch: event.dateSearch),
         );
         result.fold(
           (l) => emit(

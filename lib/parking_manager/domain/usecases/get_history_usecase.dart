@@ -5,7 +5,7 @@ import 'package:parking_manager/parking_manager/domain/repositories/parking_repo
 import 'package:parking_manager/shared/failure.dart';
 import 'package:parking_manager/shared/usecases.dart';
 
-class GetHistoryUseCase implements Usecases<List<ParkingEntity>, NoParams> {
+class GetHistoryUseCase implements Usecases<List<ParkingEntity>, Params> {
   final ParkingRepository repository;
 
   GetHistoryUseCase({
@@ -13,12 +13,18 @@ class GetHistoryUseCase implements Usecases<List<ParkingEntity>, NoParams> {
   });
 
   @override
-  Future<Either<Failure, List<ParkingEntity>>> call(NoParams params) async {
-    return await repository.getHistory();
+  Future<Either<Failure, List<ParkingEntity>>> call(Params params) async {
+    return await repository.getHistory(params.dateSearch);
   }
 }
 
-class NoParams extends Equatable {
+class Params extends Equatable {
+  final String dateSearch;
+
+  const Params({
+    required this.dateSearch,
+  });
+
   @override
   List<Object?> get props => throw UnimplementedError();
 }
