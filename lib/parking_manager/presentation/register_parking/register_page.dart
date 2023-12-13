@@ -24,8 +24,8 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     TextEditingController plateController =
         TextEditingController(text: parkingEntity?.plate);
-    TextEditingController checkinTimeController =
-        TextEditingController(text: parkingEntity?.checkinTime);
+    TextEditingController checkinTimeController = TextEditingController(
+        text: parkingEntity?.checkinTime ?? DateTime.now().toIso8601String());
     TextEditingController checkoutTimeController =
         TextEditingController(text: parkingEntity?.checkoutTime);
     ParkingEntity parking;
