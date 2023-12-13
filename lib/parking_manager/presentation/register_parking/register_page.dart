@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:parking_manager/parking_manager/domain/entities/parking_entity.dart';
@@ -11,7 +12,7 @@ import 'package:parking_manager/shared/widgets/e_primary_button.dart';
 import 'package:parking_manager/shared/widgets/e_text_form_field.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
   final ParkingEntity? parkingEntity;
   final int vacancy;
   const RegisterPage({
@@ -21,18 +22,25 @@ class RegisterPage extends StatelessWidget {
   });
 
   @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
+  @override
   Widget build(BuildContext context) {
-    TextEditingController plateController =
-        TextEditingController(text: parkingEntity?.plate);
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+    TextEditingController plateController = MaskedTextController(
+        mask: 'AAA-0*00', text: widget.parkingEntity?.plate);
     TextEditingController checkinTimeController = TextEditingController(
-        text: parkingEntity?.checkinTime ?? DateTime.now().toIso8601String());
+        text: widget.parkingEntity?.checkinTime ??
+            DateTime.now().toIso8601String());
     TextEditingController checkoutTimeController =
-        TextEditingController(text: parkingEntity?.checkoutTime);
+        TextEditingController(text: widget.parkingEntity?.checkoutTime);
     ParkingEntity parking;
 
     return Scaffold(
       appBar: AppBar(
-        title: parkingEntity == null
+        title: widget.parkingEntity == null
             ? Text(
                 'Register',
                 style: AppTextStyles.bold24black(),
@@ -57,103 +65,138 @@ class RegisterPage extends StatelessWidget {
           );
         },
         builder: (context, state) {
-          return Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                ETextFormField(
-                  hintText: 'Plate',
-                  controller: plateController,
-                ),
-                const SizedBox(height: 8),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: AppColors.primary),
-                    borderRadius: BorderRadius.circular(5),
+          return Form(
+            key: formKey,
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  ETextFormField(
+                    labelText: 'Plate',
+                    controller: plateController,
+                    onChanged: (value) {
+                      plateController.text = value.toUpperCase();
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'The plate can not be empty.';
+                      }
+                      if (value.length < 7) {
+                        return 'The plate is invalid';
+                      }
+                      return null;
+                    },
                   ),
-                  child: DateTimePicker(
-                    type: DateTimePickerType.dateTimeSeparate,
-                    dateMask: 'd MMM, yyyy',
-                    firstDate: DateTime(2023),
-                    lastDate: DateTime(2025),
-                    icon: const Icon(Icons.event),
-                    dateLabelText: 'Entry date',
-                    timeLabelText: 'Hour',
-                    controller: checkinTimeController,
-                    readOnly: (parkingEntity != null),
+                  const SizedBox(height: 8),
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: AppColors.primary),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: DateTimePicker(
+                      type: DateTimePickerType.dateTime,
+                      dateMask: 'dd/MM/yyyy - HH:mm',
+                      firstDate: DateTime(2023),
+                      lastDate: DateTime(2025),
+                      decoration: InputDecoration(
+                        icon: const Icon(Icons.event),
+                        labelText: 'Entry date and hour',
+                        errorStyle: AppTextStyles.bold16red(),
+                      ),
+                      controller: checkinTimeController,
+                      readOnly: (widget.parkingEntity != null),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 8),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: AppColors.primary),
-                    borderRadius: BorderRadius.circular(5),
+                  const SizedBox(height: 8),
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: AppColors.primary),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: DateTimePicker(
+                      type: DateTimePickerType.dateTime,
+                      dateMask: 'dd/MM/yyyy - HH:mm',
+                      firstDate: DateTime.parse(checkinTimeController.text),
+                      lastDate: DateTime(2025),
+                      decoration: InputDecoration(
+                        icon: const Icon(Icons.event),
+                        labelText: 'Exit date and hour',
+                        errorStyle: AppTextStyles.bold16red(),
+                      ),
+                      controller: checkoutTimeController,
+                      initialTime: TimeOfDay.fromDateTime(
+                          DateTime.parse(checkinTimeController.text)),
+                      validator: (value) {
+                        if (checkoutTimeController.text.isNotEmpty) {
+                          if (DateTime.parse(checkoutTimeController.text)
+                              .isBefore(
+                                  DateTime.parse(checkinTimeController.text))) {
+                            return 'Must be after checkin';
+                          }
+                        }
+                        return null;
+                      },
+                    ),
                   ),
-                  child: DateTimePicker(
-                    type: DateTimePickerType.dateTimeSeparate,
-                    dateMask: 'd MMM, yyyy',
-                    firstDate: DateTime(2023),
-                    lastDate: DateTime(2025),
-                    icon: const Icon(Icons.event),
-                    dateLabelText: 'Exit date',
-                    timeLabelText: 'Hour',
-                    controller: checkoutTimeController,
+                  const SizedBox(height: 8),
+                  ETextFormField(
+                    labelText: 'Vacancy',
+                    enabled: false,
+                    initialValue: widget.parkingEntity != null
+                        ? (widget.parkingEntity!.vacancy + 1).toString()
+                        : (widget.vacancy + 1).toString(),
                   ),
-                ),
-                const SizedBox(height: 8),
-                ETextFormField(
-                  hintText: 'Qual a vaga',
-                  enabled: false,
-                  initialValue: parkingEntity != null
-                      ? (parkingEntity!.vacancy + 1).toString()
-                      : (vacancy + 1).toString(),
-                ),
-                const Spacer(),
-                parkingEntity == null
-                    ? EPrimaryButton(
-                        title: 'Save',
-                        onPressed: () {
-                          parking = ParkingEntity(
-                            plate: plateController.text.trim(),
-                            checkinTime: checkinTimeController.text,
-                            checkoutTime: checkoutTimeController.text,
-                            vacancy: vacancy,
-                          );
-                          context.read<RegisterParkingBloc>().add(
-                                RegisterNewParkingEvent(parking),
-                              );
-                        },
-                      )
-                    : BlocConsumer<UpdateParkingBloc, UpdateParkingState>(
-                        listener: (context, state) {
-                        state.when(
-                          initial: () => null,
-                          loading: () => null,
-                          success: () {
-                            showSnackBar(context, "Updated successfully");
-                            GoRouter.of(context)
-                                .pushReplacement(AppRouter.root);
-                          },
-                          failed: () => null,
-                        );
-                      }, builder: (context, state) {
-                        return EPrimaryButton(
-                          title: 'Edit',
+                  const Spacer(),
+                  widget.parkingEntity == null
+                      ? EPrimaryButton(
+                          title: 'Save',
                           onPressed: () {
-                            parking = ParkingEntity(
-                              id: parkingEntity!.id,
-                              plate: plateController.text.trim(),
-                              checkinTime: checkinTimeController.text,
-                              checkoutTime: checkoutTimeController.text,
-                              vacancy: vacancy,
-                            );
-                            context.read<UpdateParkingBloc>().add(
-                                  UpdateNewParkingEvent(parking),
-                                );
+                            if (formKey.currentState!.validate()) {
+                              parking = ParkingEntity(
+                                plate: plateController.text.trim(),
+                                checkinTime: checkinTimeController.text,
+                                checkoutTime: checkoutTimeController.text,
+                                vacancy: widget.vacancy,
+                              );
+                              context.read<RegisterParkingBloc>().add(
+                                    RegisterNewParkingEvent(parking),
+                                  );
+                            }
                           },
-                        );
-                      }),
-              ],
+                        )
+                      : BlocConsumer<UpdateParkingBloc, UpdateParkingState>(
+                          listener: (context, state) {
+                          state.when(
+                            initial: () => null,
+                            loading: () => null,
+                            success: () {
+                              showSnackBar(context, "Updated successfully");
+                              GoRouter.of(context)
+                                  .pushReplacement(AppRouter.root);
+                            },
+                            failed: () => null,
+                          );
+                        }, builder: (context, state) {
+                          return EPrimaryButton(
+                            title: 'Edit',
+                            onPressed: () {
+                              if (formKey.currentState!.validate()) {
+                                parking = ParkingEntity(
+                                  id: widget.parkingEntity!.id,
+                                  plate: plateController.text.trim(),
+                                  checkinTime: checkinTimeController.text,
+                                  checkoutTime: checkoutTimeController.text,
+                                  vacancy: widget.vacancy,
+                                );
+                                context.read<UpdateParkingBloc>().add(
+                                      UpdateNewParkingEvent(parking),
+                                    );
+                              }
+                            },
+                          );
+                        }),
+                ],
+              ),
             ),
           );
         },

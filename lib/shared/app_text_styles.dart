@@ -16,6 +16,13 @@ class AppTextStyles {
         color: AppColors.white,
       );
 
+  static TextStyle bold16red() => TextStyle(
+        fontFamily: 'Quicksand',
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        color: AppColors.red,
+      );
+
   static TextStyle bold24black() => const TextStyle(
         fontFamily: 'Quicksand',
         fontSize: 24,
