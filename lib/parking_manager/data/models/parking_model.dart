@@ -1,12 +1,11 @@
 import 'package:parking_manager/parking_manager/domain/entities/parking_entity.dart';
 
 class ParkingModel extends ParkingEntity {
-  ParkingModel({
+  const ParkingModel({
     super.id,
     required super.plate,
     required super.checkinTime,
     required super.vacancy,
-    super.isOpen,
     super.checkoutTime,
     super.parkingTimeHours,
     super.parkingCost,
@@ -18,7 +17,6 @@ class ParkingModel extends ParkingEntity {
       plate: parkingEntity.plate,
       checkinTime: parkingEntity.checkinTime,
       vacancy: parkingEntity.vacancy,
-      isOpen: parkingEntity.isOpen,
       checkoutTime: parkingEntity.checkoutTime,
     );
   }
@@ -31,7 +29,6 @@ class ParkingModel extends ParkingEntity {
       checkoutTime: map['checkoutTime'],
       parkingTimeHours: map['parkingTimeHours'],
       vacancy: map['vacancy'],
-      isOpen: map['isOpen'] == 1,
       parkingCost: map['parkingTimeHours'] != null
           ? (map['parkingTimeHours']).ceil() * 10.0
           : 0.0,
@@ -49,17 +46,12 @@ class ParkingModel extends ParkingEntity {
     if (checkoutTime != null && checkoutTime!.isNotEmpty) {
       map['checkoutTime'] = checkoutTime;
     }
-    if (parkingTimeHours != null) {
-      map['parkingCost'] = parkingTimeHours;
-    }
 
-    isOpen = (checkoutTime != null && checkoutTime!.isNotEmpty) ? true : false;
-    map['isOpen'] = isOpen ? 1 : 0;
     return map;
   }
 
   @override
   String toString() {
-    return 'ParkingModel {id: $id, plate: $plate, checkinTime: $checkinTime, checkoutTime: $checkoutTime, vacancy: $vacancy, isOpen: $isOpen, parkingTimeHours: $parkingTimeHours}, parkingCost: $parkingCost}';
+    return 'ParkingModel {id: $id, plate: $plate, checkinTime: $checkinTime, checkoutTime: $checkoutTime, vacancy: $vacancy, parkingTimeHours: $parkingTimeHours, parkingCost: $parkingCost}';
   }
 }

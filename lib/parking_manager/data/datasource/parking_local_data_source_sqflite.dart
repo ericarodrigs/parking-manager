@@ -35,15 +35,13 @@ class ParkingLocalDataSourceSqflite implements ParkingLocalDataSource {
   Future<void> _initParkingTable(Database db) async {
     String query = '''
           CREATE TABLE $_parkingTable(
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          plate TEXT,
-          checkinTime TEXT,
-          checkoutTime TEXT NULL,
-          vacancy INTEGER,
-          isOpen BOOLEAN DEFAULT 1
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            plate TEXT,
+            checkinTime TEXT,
+            checkoutTime TEXT NULL,
+            vacancy INTEGER
           )
         ''';
-
     await db.execute(query);
   }
 
@@ -60,13 +58,12 @@ class ParkingLocalDataSourceSqflite implements ParkingLocalDataSource {
   @override
   Future<List<ParkingModel>> getHistory(String dateSearch) async {
     String query = '''
-    SELECT id, plate, checkinTime, checkoutTime, vacancy, isOpen, 
-      (julianday(checkoutTime) - julianday(checkinTime)) * 24 AS parkingTimeHours
-    FROM $_parkingTable
-    WHERE checkoutTime IS NOT NULL
-    AND isOpen = 1
-    AND DATE(checkoutTime) = '$dateSearch';
-  ''';
+        SELECT id, plate, checkinTime, checkoutTime, vacancy, 
+          (julianday(checkoutTime) - julianday(checkinTime)) * 24 AS parkingTimeHours
+        FROM $_parkingTable
+        WHERE checkoutTime IS NOT NULL
+        AND DATE(checkoutTime) = '$dateSearch';
+    ''';
 
     List<Map<String, dynamic>> result = await _db.rawQuery(query);
     return result
@@ -76,7 +73,11 @@ class ParkingLocalDataSourceSqflite implements ParkingLocalDataSource {
 
   @override
   Future<List<ParkingModel>> getParkingOccupied() async {
-    String query = 'SELECT * FROM $_parkingTable WHERE isOpen = 0';
+    String query = '''
+        SELECT * FROM $_parkingTable
+        WHERE checkinTime IS NOT NULL
+        AND checkoutTime IS NULL
+    ''';
 
     final response = await _db.rawQuery(query);
     return response

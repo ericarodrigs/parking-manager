@@ -8,14 +8,12 @@ class ParkingEntity extends Equatable {
   final int vacancy;
   final double? parkingTimeHours;
   final double? parkingCost;
-  bool isOpen;
 
-  ParkingEntity({
+  const ParkingEntity({
     this.id,
     required this.plate,
     required this.checkinTime,
     required this.vacancy,
-    this.isOpen = true,
     this.checkoutTime,
     this.parkingTimeHours,
     this.parkingCost,
@@ -28,7 +26,6 @@ class ParkingEntity extends Equatable {
         checkinTime,
         checkoutTime,
         vacancy,
-        isOpen,
         parkingTimeHours,
         parkingCost,
       ];
