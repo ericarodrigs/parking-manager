@@ -11,7 +11,7 @@ import 'package:parking_manager/parking_manager/domain/entities/parking_entity.d
     as _i6;
 import 'package:parking_manager/parking_manager/domain/repositories/parking_repository.dart'
     as _i3;
-import 'package:parking_manager/shared/failure.dart' as _i5;
+import 'package:parking_manager/shared/errors/failure.dart' as _i5;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
