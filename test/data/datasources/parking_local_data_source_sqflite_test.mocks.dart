@@ -8,7 +8,7 @@ import 'dart:async' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:parking_manager/parking_manager/data/datasource/parking_local_data_source_sqflite.dart'
     as _i2;
-import 'package:parking_manager/parking_manager/domain/entities/parking_entity.dart'
+import 'package:parking_manager/parking_manager/data/models/parking_model.dart'
     as _i4;
 
 // ignore_for_file: type=lint
@@ -43,44 +43,44 @@ class MockParkingLocalDataSourceSqflite extends _i1.Mock
       ) as _i3.Future<bool>);
 
   @override
-  _i3.Future<void> registerParking(_i4.ParkingEntity? parkingEntity) =>
+  _i3.Future<void> registerParking(_i4.ParkingModel? parkingModel) =>
       (super.noSuchMethod(
         Invocation.method(
           #registerParking,
-          [parkingEntity],
+          [parkingModel],
         ),
         returnValue: _i3.Future<void>.value(),
         returnValueForMissingStub: _i3.Future<void>.value(),
       ) as _i3.Future<void>);
 
   @override
-  _i3.Future<List<_i4.ParkingEntity>> getHistory(String? dateSearch) =>
+  _i3.Future<List<_i4.ParkingModel>> getHistory(String? dateSearch) =>
       (super.noSuchMethod(
         Invocation.method(
           #getHistory,
           [dateSearch],
         ),
         returnValue:
-            _i3.Future<List<_i4.ParkingEntity>>.value(<_i4.ParkingEntity>[]),
-      ) as _i3.Future<List<_i4.ParkingEntity>>);
+            _i3.Future<List<_i4.ParkingModel>>.value(<_i4.ParkingModel>[]),
+      ) as _i3.Future<List<_i4.ParkingModel>>);
 
   @override
-  _i3.Future<List<_i4.ParkingEntity>> getParkingOccupied() =>
+  _i3.Future<List<_i4.ParkingModel>> getParkingOccupied() =>
       (super.noSuchMethod(
         Invocation.method(
           #getParkingOccupied,
           [],
         ),
         returnValue:
-            _i3.Future<List<_i4.ParkingEntity>>.value(<_i4.ParkingEntity>[]),
-      ) as _i3.Future<List<_i4.ParkingEntity>>);
+            _i3.Future<List<_i4.ParkingModel>>.value(<_i4.ParkingModel>[]),
+      ) as _i3.Future<List<_i4.ParkingModel>>);
 
   @override
-  _i3.Future<void> updateParking(_i4.ParkingEntity? parkingEntity) =>
+  _i3.Future<void> updateParking(_i4.ParkingModel? parkingModel) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateParking,
-          [parkingEntity],
+          [parkingModel],
         ),
         returnValue: _i3.Future<void>.value(),
         returnValueForMissingStub: _i3.Future<void>.value(),

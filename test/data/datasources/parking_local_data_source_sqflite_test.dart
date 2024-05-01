@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:parking_manager/parking_manager/data/datasource/parking_local_data_source_sqflite.dart';
 import 'package:mockito/annotations.dart';
-import 'package:parking_manager/parking_manager/domain/entities/parking_entity.dart';
+import 'package:parking_manager/parking_manager/data/models/parking_model.dart';
 
 import 'parking_local_data_source_sqflite_test.mocks.dart';
 
@@ -13,8 +13,8 @@ void main() {
 
   group('Local DataSource', () {
     test('should get the list of objects that are registered', () async {
-      final List<ParkingEntity> testParkingEntityList = [
-        ParkingEntity(
+      final List<ParkingModel> testParkingModelList = [
+        ParkingModel(
           plate: 'ABC1234',
           checkinTime: '2023-12-13 22:56:17',
           vacancy: 3,
@@ -24,10 +24,10 @@ void main() {
       ];
 
       when(dataSourceSqflite.getParkingOccupied())
-          .thenAnswer((_) => Future.value(testParkingEntityList));
+          .thenAnswer((_) => Future.value(testParkingModelList));
       final result = await dataSourceSqflite.getParkingOccupied();
-      expect(result, isInstanceOf<List<ParkingEntity>>());
-      expect(result, testParkingEntityList);
+      expect(result, isInstanceOf<List<ParkingModel>>());
+      expect(result, testParkingModelList);
     });
   });
 }
