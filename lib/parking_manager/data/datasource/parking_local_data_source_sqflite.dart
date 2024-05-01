@@ -1,10 +1,9 @@
 import 'dart:io';
 
 import 'package:parking_manager/parking_manager/data/datasource/parking_local_data_source.dart';
+import 'package:parking_manager/parking_manager/data/models/parking_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-
-import 'package:parking_manager/parking_manager/domain/entities/parking_entity.dart';
 import 'package:parking_manager/shared/exceptions.dart';
 
 class ParkingLocalDataSourceSqflite implements ParkingLocalDataSource {
@@ -49,9 +48,9 @@ class ParkingLocalDataSourceSqflite implements ParkingLocalDataSource {
   }
 
   @override
-  Future<void> registerParking(ParkingEntity parkingEntity) async {
+  Future<void> registerParking(ParkingModel parkingModel) async {
     try {
-      await _db.insert(_parkingTable, parkingEntity.toMap(),
+      await _db.insert(_parkingTable, parkingModel.toMap(),
           conflictAlgorithm: ConflictAlgorithm.replace);
     } catch (e) {
       throw ConnectionException();
@@ -59,7 +58,7 @@ class ParkingLocalDataSourceSqflite implements ParkingLocalDataSource {
   }
 
   @override
-  Future<List<ParkingEntity>> getHistory(String dateSearch) async {
+  Future<List<ParkingModel>> getHistory(String dateSearch) async {
     String query = '''
     SELECT id, plate, checkinTime, checkoutTime, vacancy, isOpen, 
       (julianday(checkoutTime) - julianday(checkinTime)) * 24 AS parkingTimeHours
@@ -71,28 +70,28 @@ class ParkingLocalDataSourceSqflite implements ParkingLocalDataSource {
 
     List<Map<String, dynamic>> result = await _db.rawQuery(query);
     return result
-        .map<ParkingEntity>((parking) => ParkingEntity.fromMap(parking))
+        .map<ParkingModel>((parking) => ParkingModel.fromMap(parking))
         .toList();
   }
 
   @override
-  Future<List<ParkingEntity>> getParkingOccupied() async {
+  Future<List<ParkingModel>> getParkingOccupied() async {
     String query = 'SELECT * FROM $_parkingTable WHERE isOpen = 0';
 
     final response = await _db.rawQuery(query);
     return response
-        .map<ParkingEntity>((parking) => ParkingEntity.fromMap(parking))
+        .map<ParkingModel>((parking) => ParkingModel.fromMap(parking))
         .toList();
   }
 
   @override
-  Future<void> updateParking(ParkingEntity parkingEntity) async {
+  Future<void> updateParking(ParkingModel parkingModel) async {
     try {
       await _db.update(
         _parkingTable,
-        parkingEntity.toMap(),
+        parkingModel.toMap(),
         where: 'id = ?',
-        whereArgs: [parkingEntity.id],
+        whereArgs: [parkingModel.id],
       );
     } catch (e) {
       throw ConnectionException();

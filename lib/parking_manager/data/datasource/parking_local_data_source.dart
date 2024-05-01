@@ -1,9 +1,9 @@
-import 'package:parking_manager/parking_manager/domain/entities/parking_entity.dart';
+import 'package:parking_manager/parking_manager/data/models/parking_model.dart';
 
 abstract class ParkingLocalDataSource {
   Future<bool> initDb();
-  Future<List<ParkingEntity>> getHistory(String dateSearch);
-  Future<List<ParkingEntity>> getParkingOccupied();
-  Future<void> registerParking(ParkingEntity parkingEntity);
-  Future<void> updateParking(ParkingEntity parkingEntity);
+  Future<List<ParkingModel>> getHistory(String dateSearch);
+  Future<List<ParkingModel>> getParkingOccupied();
+  Future<void> registerParking(ParkingModel parkingModel);
+  Future<void> updateParking(ParkingModel parkingModel);
 }

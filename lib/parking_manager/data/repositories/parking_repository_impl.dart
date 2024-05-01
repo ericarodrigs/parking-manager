@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:parking_manager/parking_manager/data/datasource/parking_local_data_source.dart';
+import 'package:parking_manager/parking_manager/data/models/parking_model.dart';
 import 'package:parking_manager/parking_manager/domain/entities/parking_entity.dart';
 import 'package:parking_manager/parking_manager/domain/repositories/parking_repository.dart';
 import 'package:parking_manager/shared/exceptions.dart';
@@ -37,8 +38,8 @@ class ParkingRepositoryImpl implements ParkingRepository {
   Future<Either<Failure, void>> registerParking(
       ParkingEntity parkingEntity) async {
     try {
-      final response =
-          await parkingLocalDataSource.registerParking(parkingEntity);
+      final response = await parkingLocalDataSource
+          .registerParking(ParkingModel.fromEntity(parkingEntity));
       return Right(response);
     } on ConnectionException {
       return Left(DatabaseFailure());
@@ -49,8 +50,8 @@ class ParkingRepositoryImpl implements ParkingRepository {
   Future<Either<Failure, void>> updateParking(
       ParkingEntity parkingEntity) async {
     try {
-      final response =
-          await parkingLocalDataSource.updateParking(parkingEntity);
+      final response = await parkingLocalDataSource
+          .updateParking(ParkingModel.fromEntity(parkingEntity));
       return Right(response);
     } on ConnectionException {
       return Left(DatabaseFailure());
