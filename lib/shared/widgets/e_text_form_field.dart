@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:parking_manager/shared/app_colors.dart';
-import 'package:parking_manager/shared/app_text_styles.dart';
+import 'package:parking_manager/shared/themes/app_colors.dart';
+import 'package:parking_manager/shared/themes/app_text_styles.dart';
 
 class ETextFormField extends StatelessWidget {
   final String? hintText;

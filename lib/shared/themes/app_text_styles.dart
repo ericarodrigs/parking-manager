@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:parking_manager/shared/app_colors.dart';
+import 'package:parking_manager/shared/themes/app_colors.dart';
 
 class AppTextStyles {
   static TextStyle medium14white() => const TextStyle(

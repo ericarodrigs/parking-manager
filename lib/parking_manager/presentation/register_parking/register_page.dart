@@ -5,9 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:parking_manager/parking_manager/domain/entities/parking_entity.dart';
 import 'package:parking_manager/parking_manager/presentation/register_parking/bloc/register_parking_bloc.dart';
 import 'package:parking_manager/parking_manager/presentation/update_parking/bloc/update_parking_bloc.dart';
-import 'package:parking_manager/shared/app_colors.dart';
-import 'package:parking_manager/shared/app_text_styles.dart';
-import 'package:parking_manager/shared/routes.dart';
+import 'package:parking_manager/shared/routes/routes.dart';
+import 'package:parking_manager/shared/themes/app_colors.dart';
+import 'package:parking_manager/shared/themes/app_text_styles.dart';
 import 'package:parking_manager/shared/widgets/e_primary_button.dart';
 import 'package:parking_manager/shared/widgets/e_text_form_field.dart';
 import 'package:date_time_picker/date_time_picker.dart';
@@ -54,14 +54,11 @@ class _RegisterPageState extends State<RegisterPage> {
       resizeToAvoidBottomInset: false,
       body: BlocConsumer<RegisterParkingBloc, RegisterParkingState>(
         listener: (context, state) {
-          state.when(
-            initial: () => null,
-            loading: () => null,
+          state.whenOrNull(
             success: () {
               showSnackBar(context, "Added successfully");
               GoRouter.of(context).pushReplacement(AppRouter.root);
             },
-            failed: () => null,
           );
         },
         builder: (context, state) {
@@ -166,15 +163,12 @@ class _RegisterPageState extends State<RegisterPage> {
                         )
                       : BlocConsumer<UpdateParkingBloc, UpdateParkingState>(
                           listener: (context, state) {
-                          state.when(
-                            initial: () => null,
-                            loading: () => null,
+                          state.whenOrNull(
                             success: () {
                               showSnackBar(context, "Updated successfully");
                               GoRouter.of(context)
                                   .pushReplacement(AppRouter.root);
                             },
-                            failed: () => null,
                           );
                         }, builder: (context, state) {
                           return EPrimaryButton(

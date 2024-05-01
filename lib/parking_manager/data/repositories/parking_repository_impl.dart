@@ -3,8 +3,8 @@ import 'package:parking_manager/parking_manager/data/datasource/parking_local_da
 import 'package:parking_manager/parking_manager/data/models/parking_model.dart';
 import 'package:parking_manager/parking_manager/domain/entities/parking_entity.dart';
 import 'package:parking_manager/parking_manager/domain/repositories/parking_repository.dart';
-import 'package:parking_manager/shared/exceptions.dart';
-import 'package:parking_manager/shared/failure.dart';
+import 'package:parking_manager/shared/errors/exceptions.dart';
+import 'package:parking_manager/shared/errors/failure.dart';
 
 class ParkingRepositoryImpl implements ParkingRepository {
   final ParkingLocalDataSource parkingLocalDataSource;

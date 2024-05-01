@@ -8,7 +8,7 @@ import 'package:parking_manager/parking_manager/presentation/get_parking_occupie
 import 'package:parking_manager/parking_manager/presentation/register_parking/bloc/register_parking_bloc.dart';
 import 'package:parking_manager/parking_manager/presentation/register_parking/register_page.dart';
 import 'package:parking_manager/parking_manager/presentation/update_parking/bloc/update_parking_bloc.dart';
-import 'package:parking_manager/shared/injector.dart';
+import 'package:parking_manager/injector.dart';
 
 class AppRouter {
   static const root = '/';
