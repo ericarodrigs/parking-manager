@@ -47,4 +47,15 @@ void main() {
       },
     );
   });
+
+  group('fromEntity', () {
+    test(
+      'should return a valid model from a entity',
+      () async {
+        final result = ParkingModel.fromEntity(testParkingEntity);
+
+        expect(result, testParkingModel);
+      },
+    );
+  });
 }

@@ -18,6 +18,8 @@ class ParkingModel extends ParkingEntity {
       checkinTime: parkingEntity.checkinTime,
       vacancy: parkingEntity.vacancy,
       checkoutTime: parkingEntity.checkoutTime,
+      parkingTimeHours: parkingEntity.parkingTimeHours,
+      parkingCost: parkingEntity.parkingCost,
     );
   }
 
