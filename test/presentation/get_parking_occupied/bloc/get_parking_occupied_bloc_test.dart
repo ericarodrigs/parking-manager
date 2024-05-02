@@ -5,6 +5,7 @@ import 'package:mockito/mockito.dart';
 import 'package:parking_manager/parking_manager/domain/repositories/parking_repository.dart';
 import 'package:parking_manager/parking_manager/domain/usecases/get_parking_occupied_usecase.dart';
 import 'package:parking_manager/parking_manager/presentation/get_parking_occupied/bloc/get_parking_occupied_bloc.dart';
+import 'package:parking_manager/shared/errors/failure.dart';
 
 import '../../../domain/usecases/get_parking_occupied_usecase_test.mocks.dart';
 import '../../../mocks/mocks.dart';
@@ -17,8 +18,8 @@ void main() {
   GetParkingOccupiedBloc bloc = GetParkingOccupiedBloc(
       getParkingOccupiedUseCase: getParkingOccupiedUseCase);
 
-  group('Bloc Test', () {
-    test('Success', () async {
+  group('Bloc Test - getParkingOccupied', () {
+    test('Success - getParkingOccupied', () async {
       when(repository.getParkingOccupied())
           .thenAnswer((_) => Future.value(const Right(testParkingEntityList)));
 
@@ -33,5 +34,21 @@ void main() {
         ),
       );
     });
+  });
+
+  test('Failure - getParkingOccupied', () async {
+    when(repository.getParkingOccupied())
+        .thenAnswer((_) => Future.value(Left(NoDataFailure())));
+
+    bloc.add(const GetAllParkingOccupiedEvent());
+    await expectLater(
+      bloc.stream,
+      emitsInOrder(
+        [
+          const GetParkingOccupiedState.loading(),
+          const GetParkingOccupiedState.error(),
+        ],
+      ),
+    );
   });
 }
