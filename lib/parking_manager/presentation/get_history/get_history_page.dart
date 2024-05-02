@@ -5,6 +5,8 @@ import 'package:parking_manager/parking_manager/domain/entities/parking_entity.d
 import 'package:parking_manager/parking_manager/presentation/get_history/bloc/get_history_bloc.dart';
 import 'package:parking_manager/shared/themes/app_colors.dart';
 import 'package:parking_manager/shared/themes/app_text_styles.dart';
+import 'package:parking_manager/shared/utils/extensions/currency_extension.dart';
+import 'package:parking_manager/shared/utils/extensions/date_extension.dart';
 
 class GetHistoryPage extends StatelessWidget {
   const GetHistoryPage({
@@ -130,7 +132,7 @@ class HistoryListView extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(4),
                 child: Text(
-                  'Balance of: ${getFormattedDate()}',
+                  'Balance of: ${dateController.text.formatDate()}',
                   style: AppTextStyles.bold16white(),
                   textAlign: TextAlign.center,
                 ),
@@ -167,18 +169,10 @@ class HistoryListView extends StatelessWidget {
         (sum, parkintEntity) => sum + ((parkintEntity.parkingCost) ?? 0.0));
 
     return Text(
-      'The total value of the day was:\nR\$ ${totalCost.toStringAsFixed(2)}',
+      'The total value of the day was:\n${totalCost.reaisLabel()}',
       style: AppTextStyles.bold16white(),
       textAlign: TextAlign.center,
     );
-  }
-
-  String getFormattedDate() {
-    DateTime currentDate = DateTime.parse(dateController.text);
-
-    return '${currentDate.day}/'
-        '${currentDate.month}/'
-        '${currentDate.year} ';
   }
 }
 
@@ -211,12 +205,12 @@ class ParkingHistoryItem extends StatelessWidget {
               ),
               const SizedBox(height: 4),
               Text(
-                'Checkin: ${getFormattedDateAndHour(parkingEntity.checkinTime)}',
+                'Checkin: ${parkingEntity.checkinTime.formatDateAndHour()}',
                 style: AppTextStyles.bold16white(),
               ),
               const SizedBox(height: 4),
               Text(
-                'Checkout: ${getFormattedDateAndHour(parkingEntity.checkoutTime)}',
+                'Checkout: ${parkingEntity.checkoutTime.formatDateAndHour()}',
                 style: AppTextStyles.bold16white(),
               ),
               Padding(
@@ -227,7 +221,7 @@ class ParkingHistoryItem extends StatelessWidget {
                 ),
               ),
               Text(
-                'Value paid: R\$ ${parkingEntity.parkingCost?.toStringAsFixed(2)}',
+                'Value paid: ${parkingEntity.parkingCost?.reaisLabel()}',
                 style: AppTextStyles.bold16white(),
               ),
             ],
@@ -235,16 +229,5 @@ class ParkingHistoryItem extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  getFormattedDateAndHour(String? date) {
-    if (date == null || date.isEmpty) return '';
-    DateTime currentDate = DateTime.parse(date);
-
-    return '${currentDate.day}/'
-        '${currentDate.month}/'
-        '${currentDate.year} '
-        '${currentDate.hour.toString().padLeft(2, '0')}:'
-        '${currentDate.minute.toString().padLeft(2, '0')}';
   }
 }

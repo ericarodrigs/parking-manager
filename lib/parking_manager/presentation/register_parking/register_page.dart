@@ -9,6 +9,7 @@ import 'package:parking_manager/shared/routes/routes.dart';
 import 'package:parking_manager/shared/themes/app_colors.dart';
 import 'package:parking_manager/shared/themes/app_text_styles.dart';
 import 'package:parking_manager/shared/widgets/e_primary_button.dart';
+import 'package:parking_manager/shared/widgets/e_snack_bar.dart';
 import 'package:parking_manager/shared/widgets/e_text_form_field.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 
@@ -56,7 +57,7 @@ class _RegisterPageState extends State<RegisterPage> {
         listener: (context, state) {
           state.whenOrNull(
             success: () {
-              showSnackBar(context, "Added successfully");
+              ESnackBar.show(context, "Added successfully");
               GoRouter.of(context).pushReplacement(AppRouter.root);
             },
           );
@@ -165,7 +166,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           listener: (context, state) {
                           state.whenOrNull(
                             success: () {
-                              showSnackBar(context, "Updated successfully");
+                              ESnackBar.show(context, "Updated successfully");
                               GoRouter.of(context)
                                   .pushReplacement(AppRouter.root);
                             },
@@ -194,15 +195,6 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
           );
         },
-      ),
-    );
-  }
-
-  void showSnackBar(BuildContext context, String text) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(text),
-        backgroundColor: AppColors.primary,
       ),
     );
   }
