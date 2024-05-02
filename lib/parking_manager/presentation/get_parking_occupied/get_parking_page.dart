@@ -4,8 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:parking_manager/parking_manager/presentation/get_parking_occupied/bloc/get_parking_occupied_bloc.dart';
 import 'package:parking_manager/parking_manager/presentation/get_parking_occupied/grid_view_parking.dart';
 import 'package:parking_manager/shared/routes/routes.dart';
-import 'package:parking_manager/shared/themes/app_colors.dart';
 import 'package:parking_manager/shared/themes/app_text_styles.dart';
+import 'package:parking_manager/shared/widgets/error.dart';
+import 'package:parking_manager/shared/widgets/loading.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -35,21 +36,10 @@ class _HomePageState extends State<HomePage> {
       body: BlocBuilder<GetParkingOccupiedBloc, GetParkingOccupiedState>(
         builder: (context, state) {
           state.when(
-            initial: () => finalView = const GridViewParking(
-              parking: [],
-            ),
-            loading: () => finalView = const Center(
-              child: CircularProgressIndicator(
-                color: AppColors.primary,
-              ),
-            ),
+            initial: () => finalView = const GridViewParking(parking: []),
+            loading: () => finalView = loadingState,
             loaded: (parking) => finalView = GridViewParking(parking: parking),
-            error: () => finalView = Center(
-              child: Text(
-                'error',
-                style: AppTextStyles.bold24black(),
-              ),
-            ),
+            error: () => finalView = errorState,
           );
           return finalView;
         },
