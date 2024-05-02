@@ -25,3 +25,12 @@ const List<ParkingEntity> testParkingEntityList = [
     parkingCost: 0.0,
   )
 ];
+
+const ParkingEntity testParkingEntity = ParkingEntity(
+  plate: 'ABC1234',
+  checkinTime: '2023-12-13 22:56:17',
+  vacancy: 3,
+  parkingCost: 0.0,
+);
+
+const String testDateSearch = '2023-12-13';
