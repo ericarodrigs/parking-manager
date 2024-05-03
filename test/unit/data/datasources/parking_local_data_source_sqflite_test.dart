@@ -1,22 +1,12 @@
-import 'dart:math';
-
 import 'package:flutter_test/flutter_test.dart';
-import 'package:parking_manager/parking_manager/data/datasource/parking_local_data_source_sqflite.dart';
-import 'package:mockito/annotations.dart';
 import 'package:parking_manager/parking_manager/data/models/parking_model.dart';
-import 'package:parking_manager/shared/errors/exceptions.dart';
 import 'package:parking_manager/shared/utils/extensions/constants/constants.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../mocks/mocks.dart';
 import 'config_database/parking_database_initializer_test.dart';
-import 'parking_local_data_source_sqflite_test.mocks.dart';
 
-@GenerateMocks([ParkingLocalDataSourceSqflite])
 void main() {
-  ParkingLocalDataSourceSqflite dataSourceSqflite =
-      MockParkingLocalDataSourceSqflite();
-
   setUpAll(() {
     sqfliteTestInit();
   });

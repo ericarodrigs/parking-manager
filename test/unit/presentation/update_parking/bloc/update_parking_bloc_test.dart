@@ -7,8 +7,8 @@ import 'package:parking_manager/parking_manager/domain/usecases/update_parking_u
 import 'package:parking_manager/parking_manager/presentation/update_parking/bloc/update_parking_bloc.dart';
 import 'package:parking_manager/shared/errors/failure.dart';
 
-import '../../../domain/usecases/update_parking_usecase_test.mocks.dart';
 import '../../../mocks/mocks.dart';
+import '../../../domain/usecases/update_parking_usecase_test.mocks.dart';
 
 @GenerateMocks([ParkingRepository])
 void main() {
