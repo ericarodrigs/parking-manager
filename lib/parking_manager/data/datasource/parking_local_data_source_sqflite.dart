@@ -24,15 +24,8 @@ class ParkingLocalDataSourceSqflite implements ParkingLocalDataSource {
 
   @override
   Future<List<ParkingModel>> getHistory(String dateSearch) async {
-    String query = '''
-        SELECT id, plate, checkinTime, checkoutTime, vacancy, 
-          (julianday(checkoutTime) - julianday(checkinTime)) * 24 AS parkingTimeHours
-        FROM $parkingTable
-        WHERE checkoutTime IS NOT NULL
-        AND DATE(checkoutTime) = '$dateSearch';
-    ''';
-
-    List<Map<String, dynamic>> result = await database.rawQuery(query);
+    List<Map<String, dynamic>> result =
+        await database.rawQuery(queryHistory(dateSearch));
     return result
         .map<ParkingModel>((parking) => ParkingModel.fromMap(parking))
         .toList();
@@ -40,13 +33,7 @@ class ParkingLocalDataSourceSqflite implements ParkingLocalDataSource {
 
   @override
   Future<List<ParkingModel>> getParkingOccupied() async {
-    String query = '''
-        SELECT * FROM $parkingTable
-        WHERE checkinTime IS NOT NULL
-        AND checkoutTime IS NULL
-    ''';
-
-    final response = await database.rawQuery(query);
+    final response = await database.rawQuery(queryOcuppied);
     return response
         .map<ParkingModel>((parking) => ParkingModel.fromMap(parking))
         .toList();
