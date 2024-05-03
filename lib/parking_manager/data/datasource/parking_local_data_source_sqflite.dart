@@ -1,4 +1,4 @@
-import 'package:parking_manager/shared/utils/extensions/constants/constants.dart';
+import 'package:parking_manager/shared/utils/constants/constants.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'package:parking_manager/parking_manager/data/datasource/parking_local_data_source.dart';

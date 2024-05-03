@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:parking_manager/parking_manager/data/models/parking_model.dart';
-import 'package:parking_manager/shared/utils/extensions/constants/constants.dart';
+import 'package:parking_manager/shared/utils/constants/constants.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../mocks/mocks.dart';

@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:parking_manager/shared/errors/exceptions.dart';
-import 'package:parking_manager/shared/utils/extensions/constants/constants.dart';
+import 'package:parking_manager/shared/utils/constants/constants.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 

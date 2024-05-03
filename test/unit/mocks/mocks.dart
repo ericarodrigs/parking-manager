@@ -1,6 +1,6 @@
 import 'package:parking_manager/parking_manager/data/models/parking_model.dart';
 import 'package:parking_manager/parking_manager/domain/entities/parking_entity.dart';
-import 'package:parking_manager/shared/utils/extensions/constants/constants.dart';
+import 'package:parking_manager/shared/utils/constants/constants.dart';
 
 const List<ParkingModel> testParkingModelList = [
   ParkingModel(
