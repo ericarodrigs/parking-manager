@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:parking_manager/parking_manager/data/datasource/config_database/parking_database_initializer.dart';
 import 'package:parking_manager/parking_manager/data/datasource/parking_local_data_source.dart';
 import 'package:parking_manager/parking_manager/data/datasource/parking_local_data_source_sqflite.dart';
 import 'package:parking_manager/parking_manager/data/repositories/parking_repository_impl.dart';
@@ -11,13 +12,21 @@ import 'package:parking_manager/parking_manager/presentation/get_history/bloc/ge
 import 'package:parking_manager/parking_manager/presentation/get_parking_occupied/bloc/get_parking_occupied_bloc.dart';
 import 'package:parking_manager/parking_manager/presentation/register_parking/bloc/register_parking_bloc.dart';
 import 'package:parking_manager/parking_manager/presentation/update_parking/bloc/update_parking_bloc.dart';
+import 'package:sqflite/sqflite.dart';
 
 final injector = GetIt.instance;
 
 Future<void> initDependencies() async {
+  /// Database ///
+  injector.registerSingleton<ParkingDatabaseInitializer>(
+      ParkingDatabaseInitializer());
+
+  final Database database =
+      await injector<ParkingDatabaseInitializer>().initDb();
+
   /// Data Source ///
   injector.registerLazySingleton<ParkingLocalDataSource>(
-      () => ParkingLocalDataSourceSqflite());
+      () => ParkingLocalDataSourceSqflite(database: database));
 
   /// Repository ///
   injector.registerLazySingleton<ParkingRepository>(
@@ -26,8 +35,6 @@ Future<void> initDependencies() async {
   /// UseCase ///
   injector
       .registerLazySingleton(() => GetHistoryUseCase(repository: injector()));
-
-  /// UseCase ///
   injector.registerLazySingleton(
       () => GetParkingOccupiedUseCase(repository: injector()));
   injector.registerLazySingleton(
@@ -43,6 +50,4 @@ Future<void> initDependencies() async {
       () => GetParkingOccupiedBloc(getParkingOccupiedUseCase: injector()));
   injector.registerFactory(
       () => UpdateParkingBloc(updateParkingUseCase: injector()));
-
-  await injector<ParkingLocalDataSource>().initDb();
 }
