@@ -58,4 +58,19 @@ void main() {
       },
     );
   });
+
+  group('toString', () {
+    test(
+      'should return the ParkingModel converted to string',
+      () async {
+        String result = testParkingModel.toString();
+
+        expect(
+            result,
+            equals(
+              'ParkingModel {id: null, plate: ABC1234, checkinTime: 2023-12-13 22:56:17, checkoutTime: null, vacancy: 3, parkingTimeHours: null, parkingCost: 0.0}',
+            ));
+      },
+    );
+  });
 }
