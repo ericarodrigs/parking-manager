@@ -7,18 +7,30 @@ import 'package:parking_manager/shared/themes/app_text_styles.dart';
 import 'package:parking_manager/shared/widgets/error.dart';
 import 'package:parking_manager/shared/widgets/loading.dart';
 
-class GetHistoryPage extends StatelessWidget {
+class GetHistoryPage extends StatefulWidget {
   const GetHistoryPage({
     super.key,
   });
 
   @override
+  State<GetHistoryPage> createState() => _GetHistoryPageState();
+}
+
+class _GetHistoryPageState extends State<GetHistoryPage> {
+  TextEditingController dateController =
+      TextEditingController(text: formatDateToday());
+
+  late Widget finalView;
+
+  @override
+  void dispose() {
+    dateController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final historyBloc = BlocProvider.of<GetHistoryBloc>(context);
-    TextEditingController dateController =
-        TextEditingController(text: formatDateToday());
-
-    late Widget finalView;
 
     return Scaffold(
       appBar: AppBar(
@@ -52,8 +64,6 @@ class GetHistoryPage extends StatelessWidget {
       ),
     );
   }
-
-  String formatDateToday() => DateTime.now().toIso8601String().split('T')[0];
 
   void showDataPicker(BuildContext context, GetHistoryBloc historyBloc,
       TextEditingController dateController) {
@@ -97,3 +107,5 @@ class GetHistoryPage extends StatelessWidget {
     );
   }
 }
+
+String formatDateToday() => DateTime.now().toIso8601String().split('T')[0];

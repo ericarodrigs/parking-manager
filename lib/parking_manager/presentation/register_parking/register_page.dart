@@ -28,18 +28,26 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  late TextEditingController plateController =
+      MaskedTextController(mask: 'AAA-0*00', text: widget.parkingEntity?.plate);
+  late TextEditingController checkinTimeController = TextEditingController(
+      text: widget.parkingEntity?.checkinTime ??
+          DateTime.now().toIso8601String());
+  late TextEditingController checkoutTimeController =
+      TextEditingController(text: widget.parkingEntity?.checkoutTime);
+  late ParkingEntity parking;
+
+  @override
+  void dispose() {
+    plateController.dispose();
+    checkinTimeController.dispose();
+    checkoutTimeController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-    TextEditingController plateController = MaskedTextController(
-        mask: 'AAA-0*00', text: widget.parkingEntity?.plate);
-    TextEditingController checkinTimeController = TextEditingController(
-        text: widget.parkingEntity?.checkinTime ??
-            DateTime.now().toIso8601String());
-    TextEditingController checkoutTimeController =
-        TextEditingController(text: widget.parkingEntity?.checkoutTime);
-    ParkingEntity parking;
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
