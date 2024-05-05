@@ -67,6 +67,17 @@ sqflite - armazenamento local
 
 
 ## Próximas features
+
 - Habilitar darkTheme;
 - Aplicar internacionalização;
+- Adicionar autenticação com Firebase authentication;
+- Possibilitar gerenciamento de configuração de valor, quantidade de vagas;
+- Possibilitar cadastro de diferentes tipos de veículos, permitindo valores diferentes para cada tipo;
+- Vincular aplicação com o Firebase firestore para salvar as informações também de forma remota;
+- Adicionar testes de widget/integração;
 - Paginação de lista na tela de histórico.
+
+
+## Vídeo do app
+
+![Parking Manager](https://github.com/ericarodrigs/parking-manager/blob/main/parking_manager.mp4)
