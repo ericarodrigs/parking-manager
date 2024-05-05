@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:parking_manager/parking_manager/domain/entities/parking_entity.dart';
-import 'package:parking_manager/shared/app_colors.dart';
-import 'package:parking_manager/shared/app_text_styles.dart';
-import 'package:parking_manager/shared/routes.dart';
+import 'package:parking_manager/shared/routes/routes.dart';
+import 'package:parking_manager/shared/themes/app_colors.dart';
+import 'package:parking_manager/shared/themes/app_text_styles.dart';
 
 class GridViewParking extends StatelessWidget {
   final List<ParkingEntity> parking;
@@ -21,9 +21,7 @@ class GridViewParking extends StatelessWidget {
           itemCount: 21,
           itemBuilder: (BuildContext context, int index) {
             ParkingEntity? parking = findParkingByPosition(index);
-            return parking != null
-                ? buildGridItem(context, index, parking)
-                : buildGridItemEmpty(context, index);
+            return buildGridItem(context, index, parking);
           },
         ),
       ),
@@ -42,36 +40,20 @@ class GridViewParking extends StatelessWidget {
   }
 
   Widget buildGridItem(
-      BuildContext context, int index, ParkingEntity parkingEntity) {
+      BuildContext context, int index, ParkingEntity? parkingEntity) {
     return GestureDetector(
       onTap: () => GoRouter.of(context).push(
         AppRouter.registerParking,
         extra: {'vacancy': index, 'parkingEntity': parkingEntity},
       ),
       child: Card(
-        color: AppColors.redLight,
+        color:
+            parkingEntity != null ? AppColors.redLight : AppColors.primaryLight,
         child: Center(
           child: Text(
-            'Vacancy ${index + 1} \nOccupied',
-            style: AppTextStyles.medium14white(),
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget buildGridItemEmpty(BuildContext context, int index) {
-    return GestureDetector(
-      onTap: () => GoRouter.of(context).push(
-        AppRouter.registerParking,
-        extra: {'vacancy': index, 'parkingEntity': null},
-      ),
-      child: Card(
-        color: AppColors.primaryLight,
-        child: Center(
-          child: Text(
-            'Vacancy ${index + 1} \nFree',
+            parkingEntity != null
+                ? 'Vacancy ${index + 1} \nOccupied'
+                : 'Vacancy ${index + 1} \nFree',
             style: AppTextStyles.medium14white(),
             textAlign: TextAlign.center,
           ),

@@ -47,6 +47,10 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   flutter_native_splash: ^2.3.8
   flutter_masked_text2: ^0.9.1
+  bloc: ^8.1.4
+  path: ^1.8.3
+  intl: ^0.17.0
+  sqflite_common_ffi: ^2.3.2+1
 
 dev_dependencies:
   flutter_test:

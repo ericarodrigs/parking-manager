@@ -5,10 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:parking_manager/parking_manager/domain/entities/parking_entity.dart';
 import 'package:parking_manager/parking_manager/presentation/register_parking/bloc/register_parking_bloc.dart';
 import 'package:parking_manager/parking_manager/presentation/update_parking/bloc/update_parking_bloc.dart';
-import 'package:parking_manager/shared/app_colors.dart';
-import 'package:parking_manager/shared/app_text_styles.dart';
-import 'package:parking_manager/shared/routes.dart';
+import 'package:parking_manager/shared/routes/routes.dart';
+import 'package:parking_manager/shared/themes/app_colors.dart';
+import 'package:parking_manager/shared/themes/app_text_styles.dart';
+import 'package:parking_manager/shared/utils/validators/validators.dart';
 import 'package:parking_manager/shared/widgets/e_primary_button.dart';
+import 'package:parking_manager/shared/widgets/e_snack_bar.dart';
 import 'package:parking_manager/shared/widgets/e_text_form_field.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 
@@ -26,42 +28,42 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  late TextEditingController plateController =
+      MaskedTextController(mask: 'AAA-0*00', text: widget.parkingEntity?.plate);
+  late TextEditingController checkinTimeController = TextEditingController(
+      text: widget.parkingEntity?.checkinTime ??
+          DateTime.now().toIso8601String());
+  late TextEditingController checkoutTimeController =
+      TextEditingController(text: widget.parkingEntity?.checkoutTime);
+  late ParkingEntity parking;
+
+  @override
+  void dispose() {
+    plateController.dispose();
+    checkinTimeController.dispose();
+    checkoutTimeController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-    TextEditingController plateController = MaskedTextController(
-        mask: 'AAA-0*00', text: widget.parkingEntity?.plate);
-    TextEditingController checkinTimeController = TextEditingController(
-        text: widget.parkingEntity?.checkinTime ??
-            DateTime.now().toIso8601String());
-    TextEditingController checkoutTimeController =
-        TextEditingController(text: widget.parkingEntity?.checkoutTime);
-    ParkingEntity parking;
-
     return Scaffold(
       appBar: AppBar(
-        title: widget.parkingEntity == null
-            ? Text(
-                'Register',
-                style: AppTextStyles.bold24black(),
-              )
-            : Text(
-                'Update',
-                style: AppTextStyles.bold24black(),
-              ),
+        title: Text(
+          widget.parkingEntity == null ? 'Register' : 'Update',
+          style: AppTextStyles.bold24black(),
+        ),
         automaticallyImplyLeading: true,
       ),
       resizeToAvoidBottomInset: false,
       body: BlocConsumer<RegisterParkingBloc, RegisterParkingState>(
         listener: (context, state) {
-          state.when(
-            initial: () => null,
-            loading: () => null,
+          state.whenOrNull(
             success: () {
-              showSnackBar(context, "Added successfully");
+              ESnackBar.show(context, "Added successfully");
               GoRouter.of(context).pushReplacement(AppRouter.root);
             },
-            failed: () => null,
           );
         },
         builder: (context, state) {
@@ -74,18 +76,9 @@ class _RegisterPageState extends State<RegisterPage> {
                   ETextFormField(
                     labelText: 'Plate',
                     controller: plateController,
-                    onChanged: (value) {
-                      plateController.text = value.toUpperCase();
-                    },
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'The plate can not be empty.';
-                      }
-                      if (value.length < 7) {
-                        return 'The plate is invalid';
-                      }
-                      return null;
-                    },
+                    onChanged: (value) =>
+                        plateController.text = value.toUpperCase(),
+                    validator: (value) => validatePlate(value),
                   ),
                   const SizedBox(height: 8),
                   Container(
@@ -126,16 +119,10 @@ class _RegisterPageState extends State<RegisterPage> {
                       controller: checkoutTimeController,
                       initialTime: TimeOfDay.fromDateTime(
                           DateTime.parse(checkinTimeController.text)),
-                      validator: (value) {
-                        if (checkoutTimeController.text.isNotEmpty) {
-                          if (DateTime.parse(checkoutTimeController.text)
-                              .isBefore(
-                                  DateTime.parse(checkinTimeController.text))) {
-                            return 'Must be after checkin';
-                          }
-                        }
-                        return null;
-                      },
+                      validator: (value) => validateCheckoutTime(
+                        checkoutTimeController,
+                        checkinTimeController,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -166,15 +153,12 @@ class _RegisterPageState extends State<RegisterPage> {
                         )
                       : BlocConsumer<UpdateParkingBloc, UpdateParkingState>(
                           listener: (context, state) {
-                          state.when(
-                            initial: () => null,
-                            loading: () => null,
+                          state.whenOrNull(
                             success: () {
-                              showSnackBar(context, "Updated successfully");
+                              ESnackBar.show(context, "Updated successfully");
                               GoRouter.of(context)
                                   .pushReplacement(AppRouter.root);
                             },
-                            failed: () => null,
                           );
                         }, builder: (context, state) {
                           return EPrimaryButton(
@@ -200,15 +184,6 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
           );
         },
-      ),
-    );
-  }
-
-  void showSnackBar(BuildContext context, String text) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(text),
-        backgroundColor: AppColors.primary,
       ),
     );
   }
