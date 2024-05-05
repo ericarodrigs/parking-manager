@@ -1,4 +1,4 @@
-# parking_manager
+# Parking Manager
 
 Uma solução prática e simples para auxiliar no gerenciamento do seu estacionamento através de um aplicativo híbrido desenvolvido em Flutter que entrega soluções simples e práticas, porém bastante eficientes.
 
@@ -80,4 +80,4 @@ sqflite - armazenamento local
 
 ## Vídeo do app
 
-![Parking Manager](https://github.com/ericarodrigs/parking-manager/blob/main/parking_manager.mp4)
+<video src='https://github.com/ericarodrigs/parking-manager/assets/67494723/428db974-3c63-4bca-8566-b9293e9b73d7' width=180/>
